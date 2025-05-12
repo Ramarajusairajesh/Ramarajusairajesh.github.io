@@ -19,34 +19,43 @@
         }
         
         .section {
-            height: 25vh;
+            height: 100vh;
             position: relative;
             overflow: hidden;
+            background-color: #000; /* Default dark black */
             transition: background-image 1s ease-in-out;
         }
         
-        #section1 {
+        .section .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        #section1 .bg-image {
             background-image: url('assets/0076.jpg');
-            background-size: cover;
-            background-position: center;
         }
         
-        #section2 {
+        #section2 .bg-image {
             background-image: url('assets/0203.jpg');
-            background-size: cover;
-            background-position: center;
         }
         
-        #section3 {
+        #section3 .bg-image {
             background-image: url('assets/0060.jpg');
-            background-size: cover;
-            background-position: center;
         }
         
-        #section4 {
+        #section4 .bg-image {
             background-image: url('assets/0057.jpg');
-            background-size: cover;
-            background-position: center;
+        }
+        
+        .bg-loaded {
+            opacity: 1 !important;
         }
         
         .text-container {
@@ -57,6 +66,7 @@
             opacity: 0;
             animation: dropIn 1.5s forwards;
             padding: 20px;
+            z-index: 10;
         }
         
         @keyframes dropIn {
@@ -75,20 +85,20 @@
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
         
         p {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-bottom: 20px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
         
         .btn {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: rgba(255, 255, 255, 0.2);
             color: white;
             text-decoration: none;
@@ -96,6 +106,7 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s;
+            font-size: 1.1rem;
         }
         
         .btn:hover {
@@ -108,38 +119,68 @@
             text-align: center;
             padding: 20px;
         }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="section" id="section1">
+        <div class="bg-image"></div>
         <div class="text-container" id="text1">
             <h1>Welcome to My Creative Space</h1>
             <p>Where imagination meets reality in digital form</p>
-            <a href="#" class="btn">Explore Now</a>
+            <a href="#section2" class="btn">Explore Now</a>
         </div>
+        <div class="scroll-indicator">↓</div>
     </div>
     
     <div class="section" id="section2">
+        <div class="bg-image"></div>
         <div class="text-container" id="text2">
             <h1>Discover Innovation</h1>
             <p>Breaking boundaries with cutting-edge ideas</p>
-            <a href="#" class="btn">Learn More</a>
+            <a href="#section3" class="btn">Journey Forward</a>
         </div>
+        <div class="scroll-indicator">↓</div>
     </div>
     
     <div class="section" id="section3">
+        <div class="bg-image"></div>
         <div class="text-container" id="text3">
             <h1>Crafting Experiences</h1>
             <p>Every pixel has a purpose, every interaction a meaning</p>
-            <a href="#" class="btn">See Projects</a>
+            <a href="#section4" class="btn">Unlock Creativity</a>
         </div>
+        <div class="scroll-indicator">↓</div>
     </div>
     
     <div class="section" id="section4">
+        <div class="bg-image"></div>
         <div class="text-container" id="text4">
             <h1>Let's Connect</h1>
             <p>Join me on this creative journey</p>
-            <a href="#" class="btn">Get in Touch</a>
+            <a href="#" class="btn">Begin Adventure</a>
         </div>
     </div>
     
@@ -148,6 +189,26 @@
     </footer>
 
     <script>
+        // Function to handle image loading
+        function loadBackgroundImages() {
+            const bgImages = document.querySelectorAll('.bg-image');
+            
+            bgImages.forEach(bgImage => {
+                // Get the background image URL
+                const style = getComputedStyle(bgImage);
+                const imageUrl = style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)[1];
+                
+                // Create a new image element to track loading
+                const img = new Image();
+                img.src = imageUrl;
+                
+                // When image is loaded, add the loaded class
+                img.onload = function() {
+                    bgImage.classList.add('bg-loaded');
+                };
+            });
+        }
+        
         // Function to make text disappear and appear with new background
         function handleScroll() {
             const sections = document.querySelectorAll('.section');
@@ -157,8 +218,8 @@
                 const rect = section.getBoundingClientRect();
                 const textContainer = textContainers[index];
                 
-                // If section is in viewport
-                if (rect.top >= -100 && rect.bottom <= window.innerHeight + 100) {
+                // If section is fully or partially in viewport
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
                     // Make text visible with animation
                     textContainer.style.animation = 'none';
                     void textContainer.offsetWidth; // Trigger reflow
@@ -172,7 +233,36 @@
             });
         }
         
-        // Initial call
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll indicators
+        document.querySelectorAll('.scroll-indicator').forEach(indicator => {
+            indicator.addEventListener('click', function() {
+                const parent = this.parentElement;
+                const nextSection = parent.nextElementSibling;
+                
+                if (nextSection) {
+                    nextSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initial calls
+        window.addEventListener('load', loadBackgroundImages);
         handleScroll();
         
         // Event listener for scroll
@@ -180,32 +270,40 @@
         
         // Function to periodically change background images
         function changeBackgrounds() {
-            const sections = document.querySelectorAll('.section');
+            const bgImages = document.querySelectorAll('.bg-image');
             const images = ['0076.jpg', '0203.jpg', '0060.jpg', '0057.jpg'];
             
             setInterval(() => {
-                sections.forEach((section, index) => {
-                    // Get a random image that's different from current
-                    const currentImage = section.style.backgroundImage;
-                    let randomIndex;
-                    do {
-                        randomIndex = Math.floor(Math.random() * images.length);
-                    } while (currentImage.includes(images[randomIndex]));
-                    
+                bgImages.forEach((bgImage, index) => {
                     // Fade out
-                    section.style.opacity = '0.2';
+                    bgImage.style.opacity = '0';
                     
                     setTimeout(() => {
+                        // Get a random image that's different from current
+                        const currentImage = bgImage.style.backgroundImage;
+                        let randomIndex;
+                        do {
+                            randomIndex = Math.floor(Math.random() * images.length);
+                        } while (currentImage.includes(images[randomIndex]));
+                        
                         // Change image and fade in
-                        section.style.backgroundImage = `url('assets/${images[randomIndex]}')`;
-                        section.style.opacity = '1';
+                        bgImage.style.backgroundImage = `url('assets/${images[randomIndex]}')`;
+                        
+                        // Create a new image element to track loading
+                        const img = new Image();
+                        img.src = `assets/${images[randomIndex]}`;
+                        
+                        // When image is loaded, add the loaded class
+                        img.onload = function() {
+                            bgImage.style.opacity = '1';
+                        };
                     }, 500);
                 });
             }, 8000); // Change every 8 seconds
         }
         
-        // Start background changes
-        changeBackgrounds();
+        // Start background changes after initial images are loaded
+        setTimeout(changeBackgrounds, 3000);
     </script>
 </body>
 </html>
