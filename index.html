@@ -1,151 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dynamic Background Website</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            overflow-x: hidden;
-            background-color: #000;
-            color: white;
-        }
-        
-        .section {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background-color: #000; /* Default dark black */
-            transition: background-image 1s ease-in-out;
-        }
-        
-        .section .bg-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        
-        #section1 .bg-image {
-            background-image: url('assets/0076.jpg');
-        }
-        
-        #section2 .bg-image {
-            background-image: url('assets/0203.jpg');
-        }
-        
-        #section3 .bg-image {
-            background-image: url('assets/0060.jpg');
-        }
-        
-        #section4 .bg-image {
-            background-image: url('assets/0057.jpg');
-        }
-        
-        .bg-loaded {
-            opacity: 1 !important;
-        }
-        
-        .text-container {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            top: -50px;
-            opacity: 0;
-            animation: dropIn 1.5s forwards;
-            padding: 20px;
-            z-index: 10;
-        }
-        
-        @keyframes dropIn {
-            0% {
-                top: -50px;
-                opacity: 0;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                top: 50%;
-                transform: translateY(-50%);
-                opacity: 1;
-            }
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-        
-        p {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s;
-            font-size: 1.1rem;
-        }
-        
-        .btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-        }
-        
-        footer {
-            background-color: #111;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-            opacity: 0.7;
-            cursor: pointer;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0) translateX(-50%);
-            }
-            40% {
-                transform: translateY(-20px) translateX(-50%);
-            }
-            60% {
-                transform: translateY(-10px) translateX(-50%);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="section" id="section1">
+    <div class="section" id="section1" data-images="0076.jpg">
         <div class="bg-image"></div>
         <div class="text-container" id="text1">
             <h1>Welcome to My Creative Space</h1>
@@ -154,8 +17,8 @@
         </div>
         <div class="scroll-indicator">↓</div>
     </div>
-    
-    <div class="section" id="section2">
+
+    <div class="section" id="section2" data-images="0203.jpg">
         <div class="bg-image"></div>
         <div class="text-container" id="text2">
             <h1>Discover Innovation</h1>
@@ -164,8 +27,8 @@
         </div>
         <div class="scroll-indicator">↓</div>
     </div>
-    
-    <div class="section" id="section3">
+
+    <div class="section" id="section3" data-images="0060.jpg">
         <div class="bg-image"></div>
         <div class="text-container" id="text3">
             <h1>Crafting Experiences</h1>
@@ -174,8 +37,8 @@
         </div>
         <div class="scroll-indicator">↓</div>
     </div>
-    
-    <div class="section" id="section4">
+
+    <div class="section" id="section4" data-images="0057.jpg">
         <div class="bg-image"></div>
         <div class="text-container" id="text4">
             <h1>Let's Connect</h1>
@@ -183,127 +46,12 @@
             <a href="#" class="btn">Begin Adventure</a>
         </div>
     </div>
-    
+
     <footer>
         <p>© 2023 My Creative Portfolio</p>
     </footer>
 
-    <script>
-        // Function to handle image loading
-        function loadBackgroundImages() {
-            const bgImages = document.querySelectorAll('.bg-image');
-            
-            bgImages.forEach(bgImage => {
-                // Get the background image URL
-                const style = getComputedStyle(bgImage);
-                const imageUrl = style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)[1];
-                
-                // Create a new image element to track loading
-                const img = new Image();
-                img.src = imageUrl;
-                
-                // When image is loaded, add the loaded class
-                img.onload = function() {
-                    bgImage.classList.add('bg-loaded');
-                };
-            });
-        }
-        
-        // Function to make text disappear and appear with new background
-        function handleScroll() {
-            const sections = document.querySelectorAll('.section');
-            const textContainers = document.querySelectorAll('.text-container');
-            
-            sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                const textContainer = textContainers[index];
-                
-                // If section is fully or partially in viewport
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    // Make text visible with animation
-                    textContainer.style.animation = 'none';
-                    void textContainer.offsetWidth; // Trigger reflow
-                    textContainer.style.animation = 'dropIn 1.5s forwards';
-                } else {
-                    // Reset text position
-                    textContainer.style.animation = 'none';
-                    textContainer.style.top = '-50px';
-                    textContainer.style.opacity = '0';
-                }
-            });
-        }
-        
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Scroll indicators
-        document.querySelectorAll('.scroll-indicator').forEach(indicator => {
-            indicator.addEventListener('click', function() {
-                const parent = this.parentElement;
-                const nextSection = parent.nextElementSibling;
-                
-                if (nextSection) {
-                    nextSection.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Initial calls
-        window.addEventListener('load', loadBackgroundImages);
-        handleScroll();
-        
-        // Event listener for scroll
-        window.addEventListener('scroll', handleScroll);
-        
-        // Function to periodically change background images
-        function changeBackgrounds() {
-            const bgImages = document.querySelectorAll('.bg-image');
-            const images = ['0076.jpg', '0203.jpg', '0060.jpg', '0057.jpg'];
-            
-            setInterval(() => {
-                bgImages.forEach((bgImage, index) => {
-                    // Fade out
-                    bgImage.style.opacity = '0';
-                    
-                    setTimeout(() => {
-                        // Get a random image that's different from current
-                        const currentImage = bgImage.style.backgroundImage;
-                        let randomIndex;
-                        do {
-                            randomIndex = Math.floor(Math.random() * images.length);
-                        } while (currentImage.includes(images[randomIndex]));
-                        
-                        // Change image and fade in
-                        bgImage.style.backgroundImage = `url('assets/${images[randomIndex]}')`;
-                        
-                        // Create a new image element to track loading
-                        const img = new Image();
-                        img.src = `assets/${images[randomIndex]}`;
-                        
-                        // When image is loaded, add the loaded class
-                        img.onload = function() {
-                            bgImage.style.opacity = '1';
-                        };
-                    }, 500);
-                });
-            }, 8000); // Change every 8 seconds
-        }
-        
-        // Start background changes after initial images are loaded
-        setTimeout(changeBackgrounds, 3000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
