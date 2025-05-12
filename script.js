@@ -1,23 +1,26 @@
-// Load background images
-function loadBackgroundImages() {
-	document.querySelectorAll('.section').forEach(section => {
-		const bg = section.querySelector('.bg-image');
-		const imgName = section.getAttribute('data-images');
-		const imgUrl = `assets/${imgName}`;
-		const img = new Image();
-		img.src = imgUrl;
 
-		img.onload = () => {
-			bg.style.backgroundImage = `url('${imgUrl}')`;
-			bg.classList.add('bg-loaded');
-		};
+function preloadImage(src, callback) {
+	const img = new Image();
+	img.src = src;
+	img.onload = callback;
+}
+
+function loadAllBackgrounds() {
+	document.querySelectorAll('.section').forEach(section => {
+		const bgDiv = section.querySelector('.bg-image');
+		const imgName = section.getAttribute('data-bg');
+		const imgUrl = `assets/${imgName}`;
+
+		preloadImage(imgUrl, () => {
+			bgDiv.style.backgroundImage = `url('${imgUrl}')`;
+			bgDiv.classList.add('bg-loaded');
+		});
 	});
 }
 
-// Scroll-triggered animations
+// Scroll-triggered animation only (no image change)
 function handleScroll() {
-	const sections = document.querySelectorAll('.section');
-	sections.forEach(section => {
+	document.querySelectorAll('.section').forEach(section => {
 		const rect = section.getBoundingClientRect();
 		const text = section.querySelector('.text-container');
 
@@ -33,7 +36,6 @@ function handleScroll() {
 	});
 }
 
-// Smooth scrolling for buttons and indicators
 function setupNavigation() {
 	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 		anchor.addEventListener('click', function (e) {
@@ -53,9 +55,8 @@ function setupNavigation() {
 	});
 }
 
-// On page load
 window.addEventListener('load', () => {
-	loadBackgroundImages();
+	loadAllBackgrounds();
 	handleScroll();
 	setupNavigation();
 });
