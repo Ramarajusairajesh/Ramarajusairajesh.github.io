@@ -1,53 +1,415 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Dynamic Background Website</title>
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Animations Homepage</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Custom CSS for the grid layout */
+        #animations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+            grid-template-rows: repeat(2, 1fr);    /* Two equal rows */
+            gap: 1rem; /* Gap between grid items */
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .animation-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a202c; /* Dark background for each section */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            overflow: hidden; /* Hide overflowing parts of SVGs/animations */
+            position: relative; /* Needed for absolute positioning inside */
+        }
+
+        /* Specific styles for each animation type within its section */
+
+        /* Terminal Animation Styles */
+        .terminal-section .terminal-outline {
+            stroke: #c0c0c0; /* Silver color */
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .terminal-section .blinking-cursor {
+            position: absolute;
+            width: 8px;
+            height: 16px;
+            background-color: #c0c0c0; /* Silver cursor */
+            z-index: 10;
+            /* Blinking animation applied by JS after drawing */
+            opacity: 0; /* Start hidden */
+        }
+
+        /* RJ45 Animation Styles */
+        .rj45-section .rj45-outline {
+            stroke: #b46a00; /* Copper color */
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Server Animation Styles */
+        .server-section .scrolling-line {
+            position: absolute;
+            background-color: #48bb78; /* Green color */
+            left: 0;
+        }
+
+        /* Bug Animation Styles */
+        .bug-section .bug-outline {
+            stroke: #e53e3e; /* Red color */
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+
+        /* Keyframes for animations */
+        @keyframes blink {
+            from, to { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes moveLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+         /* Initially hide all outlines for the drawing animation */
+        .bug-section .bug-outline {
+             stroke-dasharray: var(--length); /* Set by JS */
+             stroke-dashoffset: var(--length); /* Set by JS */
+        }
+    </style>
 </head>
-<body>
-    <div class="section" id="section1" data-bg="0076.jpg">
-        <div class="bg-image"></div>
-        <div class="text-container" id="text1">
-            <h1>Welcome to My Creative Space</h1>
-            <p>Where imagination meets reality in digital form</p>
-            <a href="#section2" class="btn">Explore Now</a>
+<body class="bg-gray-900 min-h-screen">
+
+    <div id="animations-grid">
+        <div id="terminal-section" class="animation-section terminal-section">
+            <div class="animation-container">
+                 <svg class="terminal-svg" width="100%" height="100%" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet">
+                    <rect class="terminal-outline" x="45" y="5" width="110" height="110" rx="5" ry="5"></rect>
+                    <path class="terminal-outline" d="M60 60 L75 45 L75 75 Z"></path>
+                    <line class="terminal-outline" x1="80" y1="70" x2="100" y2="70"></line>
+                </svg>
+                 <div class="blinking-cursor"></div>
+            </div>
         </div>
-        <div class="scroll-indicator">↓</div>
+
+        <div id="rj45-section" class="animation-section rj45-section">
+             <div class="animation-container">
+                 <svg class="rj45-svg" width="100%" height="100%" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet">
+                    <path class="rj45-outline" d="M20,20 L180,20 L180,100 L20,100 Z M150,20 L150,10 C150,5 145,0 140,0 L60,0 C55,0 50,5 50,10 L50,20 M60,30 L60,40 M70,30 L70,40 M80,30 L80,40 M90,30 L90,40 M100,30 L100,40 M110,30 L110,40 M120,30 L120,40 M130,30 L130,40"></path>
+                </svg>
+             </div>
+        </div>
+
+        <div id="server-section" class="animation-section server-section">
+             <div class="animation-container w-full h-full relative">
+                </div>
+        </div>
+
+        <div id="bug-section" class="animation-section bug-section">
+             <div class="animation-container">
+                 <svg class="bug-svg" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+                    <path class="bug-outline" d="M 35 25 L 65 25 C 68 25 70 27 70 30 L 70 55 C 70 65 60 75 50 75 C 40 75 30 65 30 55 L 30 30 C 30 27 32 25 35 25 Z M 35 25 A 15 15 0 0 1 65 25"></path> <path class="bug-outline" d="M 30 30 L 20 20 L 10 20"></path> <line class="bug-outline" x1="30" y1="45" x2="10" y2="45"></line> <path class="bug-outline" d="M 30 60 L 20 70 L 10 70"></path> <path class="bug-outline" d="M 70 30 L 80 20 L 90 20"></path> <line class="bug-outline" x1="70" y1="45" x2="90" y2="45"></line> <path class="bug-outline" d="M 70 60 L 80 70 L 90 70"></path> <rect class="bug-outline" x="42" y="42" width="16" height="16"></rect> <line class="bug-outline processor-side-line" x1="45" y1="42" x2="45" y2="40"></line>
+                    <line class="bug-outline processor-side-line" x1="50" y1="42" x2="50" y2="40"></line>
+                    <line class="bug-outline processor-side-line" x1="55" y1="42" x2="55" y2="40"></line>
+
+                     <line class="bug-outline processor-side-line" x1="45" y1="58" x2="45" y2="60"></line>
+                    <line class="bug-outline processor-side-line" x1="50" y1="58" x2="50" y2="60"></line>
+                    <line class="bug-outline processor-side-line" x1="55" y1="58" x2="55" y2="60"></line>
+
+                     <line class="bug-outline processor-side-line" x1="42" y1="45" x2="40" y2="45"></line>
+                    <line class="bug-outline processor-side-line" x1="42" y1="50" x2="40" y2="50"></line>
+                    <line class="bug-outline processor-side-line" x1="42" y1="55" x2="40" y2="55"></line>
+
+                     <line class="bug-outline processor-side-line" x1="58" y1="45" x2="60" y2="45"></line>
+                    <line class="bug-outline processor-side-line" x1="58" y1="50" x2="60" y2="50"></line>
+                    <line class="bug-outline processor-side-line" x1="58" y1="55" x2="60" y2="55"></line>
+
+                </svg>
+             </div>
+        </div>
     </div>
 
-    <div class="section" id="section2" data-bg="0203.jpg">
-        <div class="bg-image"></div>
-        <div class="text-container" id="text2">
-            <h1>Discover Innovation</h1>
-            <p>Breaking boundaries with cutting-edge ideas</p>
-            <a href="#section3" class="btn">Journey Forward</a>
-        </div>
-        <div class="scroll-indicator">↓</div>
-    </div>
 
-    <div class="section" id="section3" data-bg="0060.jpg">
-        <div class="bg-image"></div>
-        <div class="text-container" id="text3">
-            <h1>Crafting Experiences</h1>
-            <p>Every pixel has a purpose, every interaction a meaning</p>
-            <a href="#section4" class="btn">Unlock Creativity</a>
-        </div>
-        <div class="scroll-indicator">↓</div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-    <div class="section" id="section4" data-bg="0057.jpg">
-        <div class="bg-image"></div>
-        <div class="text-container" id="text4">
-            <h1>Let's Connect</h1>
-            <p>Join me on this creative journey</p>
-            <a href="#" class="btn">Begin Adventure</a>
-        </div>
-    </div>
+            // Add a small timeout to allow layout to settle before starting animations
+            setTimeout(() => {
 
-     <script src="script.js"></script>
+                // --- Terminal Animation Logic ---
+                const terminalSection = document.getElementById('terminal-section');
+                const terminalSvg = terminalSection.querySelector('.terminal-svg');
+                const terminalOutlineElements = terminalSvg.querySelectorAll('.terminal-outline');
+                const blinkingCursor = terminalSection.querySelector('.blinking-cursor');
+
+                const terminalAnimationDuration = 2000;
+
+                terminalOutlineElements.forEach(element => {
+                    if (element.isConnected && typeof element.getTotalLength === 'function') {
+                        const length = element.getTotalLength();
+                        element.style.setProperty('--length', length);
+                        element.style.strokeDasharray = length;
+                        element.style.strokeDashoffset = length;
+                    } else {
+                         element.style.setProperty('--length', 0);
+                         element.style.strokeDasharray = 0;
+                         element.style.strokeDashoffset = 0;
+                    }
+                });
+
+                function animateTerminalOutline(element, duration, delay = 0) {
+                     const length = parseFloat(element.style.getPropertyValue('--length'));
+                     if (length > 0) {
+                        element.animate(
+                            [
+                                { strokeDashoffset: length },
+                                { strokeDashoffset: 0 }
+                            ],
+                            {
+                                duration: duration,
+                                easing: 'linear',
+                                fill: 'both',
+                                delay: delay
+                            }
+                        );
+                     }
+                }
+
+                const terminalBaseDuration = terminalAnimationDuration * 0.3;
+                const terminalOutlineDuration = terminalAnimationDuration * 0.5;
+                const terminalDelayBetweenParts = terminalAnimationDuration * 0.1;
+
+                const terminalRect = terminalSvg.querySelector('rect');
+                const terminalPath = terminalSvg.querySelector('path');
+                const terminalLine = terminalSvg.querySelector('line');
+
+                animateTerminalOutline(terminalRect, terminalOutlineDuration);
+                animateTerminalOutline(terminalPath, terminalBaseDuration, terminalOutlineDuration + terminalDelayBetweenParts);
+                animateTerminalOutline(terminalLine, terminalBaseDuration, terminalOutlineDuration + terminalDelayBetweenParts * 2);
+
+                // Position and show blinking cursor after animation
+                const terminalLineLength = terminalLine.getTotalLength();
+                const terminalLineEndPoint = terminalLine.getPointAtLength(terminalLineLength);
+                const terminalSvgRect = terminalSvg.getBoundingClientRect();
+                const terminalSectionRect = document.getElementById('terminal-section').getBoundingClientRect();
+
+                setTimeout(() => {
+                     const cursorWidth = blinkingCursor.offsetWidth;
+                     const cursorHeight = blinkingCursor.offsetHeight;
+
+                     const cursorXInContainer = terminalLineEndPoint.x + (terminalSvgRect.left - terminalSectionRect.left);
+                     const cursorYInContainer = terminalLineEndPoint.y + (terminalSvgRect.top - terminalSectionRect.top);
+
+                     blinkingCursor.style.left = `${cursorXInContainer + 5}px`;
+                     blinkingCursor.style.top = `${cursorYInContainer - cursorHeight / 2}px`;
+                     blinkingCursor.style.opacity = 1;
+                     // Removed the blinking animation class here
+                     blinkingCursor.style.animation = 'none';
+
+
+                }, terminalAnimationDuration + 100);
+
+
+                // --- RJ45 Animation Logic ---
+                const rj45Section = document.getElementById('rj45-section');
+                const rj45Svg = rj45Section.querySelector('.rj45-svg');
+                const rj45Path = rj45Svg.querySelector('.rj45-outline');
+
+                const rj45AnimationDuration = 4000;
+
+                if (rj45Path.isConnected && typeof rj45Path.getTotalLength === 'function') {
+                    const rj45PathLength = rj45Path.getTotalLength();
+                    rj45Path.style.strokeDasharray = rj45PathLength;
+                    rj45Path.style.strokeDashoffset = rj45PathLength;
+
+                    rj45Path.animate(
+                        [
+                            { strokeDashoffset: rj45PathLength },
+                            { strokeDashoffset: 0 }
+                        ],
+                        {
+                            duration: rj45AnimationDuration,
+                            easing: 'linear',
+                            fill: 'both'
+                        }
+                    );
+                }
+
+
+                // --- Server Animation Logic ---
+                const serverSection = document.getElementById('server-section');
+                const serverContainer = serverSection.querySelector('.animation-container');
+
+                // Get container dimensions after the DOM is ready
+                const serverContainerRect = serverContainer.getBoundingClientRect();
+                const serverContainerWidth = serverContainerRect.width;
+                const serverContainerHeight = serverContainerRect.height;
+
+                // Check if dimensions are valid before proceeding
+                if (serverContainerWidth > 0 && serverContainerHeight > 0) {
+
+                    const minServerLineWidth = serverContainerWidth * 0.1;
+                    const maxServerLineWidth = serverContainerWidth * 0.8;
+                    const minServerLineHeight = 2;
+                    const maxServerLineHeight = 4;
+                    const serverScrollSpeed = 0.5;
+                    const newServerLineInterval = 150;
+
+                    let lastServerLineCreationTime = 0;
+                    let serverAnimationFrameId = null;
+                    let serverLines = [];
+
+                    function createServerLineElement() {
+                        const line = document.createElement('div');
+                        line.classList.add('scrolling-line');
+
+                        const randomWidth = Math.random() * (maxServerLineWidth - minServerLineWidth) + minServerLineWidth;
+                        const randomHeight = Math.random() * (maxServerLineHeight - minServerLineHeight) + minServerLineHeight;
+                        line.style.width = `${randomWidth}px`;
+                        line.style.height = `${randomHeight}px`;
+
+                        line.style.top = `${serverContainerHeight}px`;
+
+                        serverContainer.appendChild(line);
+                        serverLines.push(line);
+                    }
+
+                    function updateServerLines(timestamp) {
+                        if (!lastServerLineCreationTime) lastServerLineCreationTime = timestamp;
+
+                        if (timestamp - lastServerLineCreationTime > newServerLineInterval) {
+                            createServerLineElement();
+                            lastServerLineCreationTime = timestamp;
+                        }
+
+                        serverLines = serverLines.filter(line => {
+                            const currentTop = parseFloat(line.style.top);
+                            const newTop = currentTop - serverScrollSpeed;
+                            line.style.top = `${newTop}px`;
+
+                            if (newTop + line.offsetHeight < 0) {
+                                line.remove();
+                                return false;
+                            }
+                            return true;
+                        });
+
+                        serverAnimationFrameId = requestAnimationFrame(updateServerLines);
+                    }
+
+                    // Start server animation loop
+                    serverAnimationFrameId = requestAnimationFrame(updateServerLines);
+
+                    // Create initial server lines with stagger
+                    const initialServerLinesCount = Math.floor(serverContainerHeight / (maxServerLineHeight + 5));
+                    for (let i = 0; i < initialServerLinesCount; i++) {
+                         createServerLineElement();
+                         serverLines[i].style.top = `${serverContainerHeight - (i + 1) * (maxServerLineHeight + 5)}px`;
+                    }
+
+                } else {
+                    console.warn("Server container dimensions not available. Retrying animation start.");
+                    // If dimensions are not available, wait and try to start animation again
+                    setTimeout(updateServerLines, 100);
+                }
+
+
+                // --- Bug Animation Logic ---
+                const bugSection = document.getElementById('bug-section');
+                const bugSvg = bugSection.querySelector('.bug-svg');
+                const bugOutlineElements = bugSvg.querySelectorAll('.bug-outline');
+
+                const bugAnimationDuration = 4000;
+
+                // Check if SVG element is available before proceeding
+                if (bugSvg) {
+                    bugOutlineElements.forEach(element => {
+                         if (element.isConnected && typeof element.getTotalLength === 'function') {
+                            const length = element.getTotalLength();
+                            element.style.setProperty('--length', length);
+                            element.style.strokeDasharray = length;
+                            element.style.strokeDashoffset = length;
+                        } else {
+                             element.style.setProperty('--length', 0);
+                             element.style.strokeDasharray = 0;
+                             element.style.strokeDashoffset = 0;
+                        }
+                    });
+
+                    function animateBugOutline(element, duration, delay = 0) {
+                         const length = parseFloat(element.style.getPropertyValue('--length'));
+                         if (length > 0) {
+                            element.animate(
+                                [
+                                    { strokeDashoffset: length },
+                                    { strokeDashoffset: 0 }
+                                ],
+                                {
+                                    duration: duration,
+                                    easing: 'linear',
+                                    fill: 'both',
+                                    delay: delay
+                                }
+                            );
+                         }
+                    }
+
+                    const bugBaseDuration = bugAnimationDuration * 0.15;
+                    const bugBodyDuration = bugAnimationDuration * 0.3;
+                    const bugDelayBetweenParts = bugAnimationDuration * 0.03;
+                    const bugProcessorSideLineDuration = bugBaseDuration * 0.4;
+
+                    const bugBody = bugSvg.getElementById('bug-body');
+                    const legs = bugSvg.querySelectorAll('path[id^="leg-"], line[id^="leg-"]');
+                    const processorOutline = bugSvg.getElementById('processor-outline');
+                    const processorSideLines = bugSvg.querySelectorAll('.processor-side-line');
+
+                    animateBugOutline(bugBody, bugBodyDuration);
+
+                    legs.forEach((leg, index) => {
+                        animateBugOutline(leg, bugBaseDuration, bugBodyDuration + bugDelayBetweenParts * (index + 1));
+                    });
+
+                    animateBugOutline(processorOutline, bugBaseDuration, bugBodyDuration + bugDelayBetweenParts * (legs.length + 1));
+
+                    processorSideLines.forEach((el, index) => {
+                         animateBugOutline(el, bugProcessorSideLineDuration, bugBodyDuration + bugDelayBetweenParts * (legs.length + 1) + (index * (bugProcessorSideLineDuration / processorSideLines.length)));
+                     });
+
+                } else {
+                     console.warn("Bug SVG element not available. Retrying animation start.");
+                     // If SVG is not available, wait and try to start animation again
+                     setTimeout(animateBugOutline, 100); // Note: This might need adjustment based on how animateBugOutline is used
+                }
+
+
+            }, 50); // Small timeout to allow layout to settle
+
+
+            // --- Handle Window Resize ---
+            window.addEventListener('resize', () => {
+                 // For simplicity, reload the page on resize to re-initialize all animations
+                 window.location.reload();
+            });
+        });
+    </script>
+
 </body>
 </html>
 
