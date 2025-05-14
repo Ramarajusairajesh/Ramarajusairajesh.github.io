@@ -6,35 +6,34 @@
     <title>Tech Animations Homepage</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
-        /* Custom CSS for the grid layout */
         #animations-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-            grid-template-rows: repeat(2, 1fr);    /* Two equal rows */
-            gap: 1rem; /* Gap between grid items */
+            grid-template-columns: repeat(2, 1fr); 
+            grid-template-rows: repeat(2, 1fr);    
+            gap: 1rem; 
             width: 100%;
-            height: 100vh; /* Full viewport height */
+            height: 100vh; 
             padding: 1rem;
             box-sizing: border-box;
-            position: relative; /* For absolute positioning of the center text */
+            position: relative; 
         }
 
         .animation-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #1a202c; /* Dark background for each section */
+            background-color: #1a202c; 
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            overflow: hidden; /* Hide overflowing parts of SVGs/animations */
-            position: relative; /* Needed for absolute positioning inside */
+            overflow: hidden; 
+            position: relative; 
         }
 
-        /* Specific styles for each animation type within its section */
+        
 
-        /* Terminal Animation Styles */
+        
         .terminal-section .terminal-outline {
-            stroke: #c0c0c0; /* Silver color */
+            stroke: #c0c0c0; 
             stroke-width: 2;
             fill: none;
             stroke-linecap: round;
@@ -45,44 +44,44 @@
             position: absolute;
             width: 8px;
             height: 16px;
-            background-color: #c0c0c0; /* Silver cursor */
+            background-color: #c0c0c0; 
             z-index: 10;
-            /* Blinking animation applied by JS after drawing */
-            opacity: 0; /* Start hidden */
+            
+            opacity: 0; 
         }
 
-        /* RJ45 Animation Styles */
+        
         .rj45-section .rj45-outline {
-            stroke: #b46a00; /* Copper color */
+            stroke: #b46a00; 
             stroke-width: 3;
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
 
-        /* Server Animation Styles */
+        
         .server-section .scrolling-line {
             position: absolute;
-            background-color: #48bb78; /* Green color */
+            background-color: #48bb78; 
             left: 0;
         }
 
-        /* Bug Animation Styles */
+        
         .bug-section .bug-outline {
-            stroke: #e53e3e; /* Red color */
+            stroke: #e53e3e; 
             stroke-width: 2;
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
 
-        /* Center text styles */
+        
         .center-text {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(26, 32, 44, 0.9); /* Dark background with opacity */
+            background-color: rgba(26, 32, 44, 0.9); 
             color: white;
             padding: 1rem 2rem;
             border-radius: 1rem;
@@ -90,22 +89,22 @@
             font-size: 1.5rem;
             font-weight: bold;
             text-align: center;
-            z-index: 100; /* Ensure it stays on top */
+            z-index: 100; 
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             border: 2px solid #4a5568;
         }
 
-        /* Make animation sections interactive */
+        
         .animation-section {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #1a202c; /* Dark background for each section */
+            background-color: #1a202c; 
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            overflow: hidden; /* Hide overflowing parts of SVGs/animations */
-            position: relative; /* Needed for absolute positioning inside */
-            cursor: pointer; /* Show pointer cursor on hover */
+            overflow: hidden; 
+            position: relative; 
+            cursor: pointer; 
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
@@ -114,7 +113,7 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
         }
 
-        /* Add section labels */
+        
         .section-label {
             position: absolute;
             bottom: 10px;
@@ -134,7 +133,7 @@
         }
 
 
-        /* Keyframes for animations */
+        
         @keyframes blink {
             from, to { opacity: 0; }
             50% { opacity: 1; }
@@ -145,10 +144,10 @@
             100% { transform: translateX(100%); }
         }
 
-         /* Initially hide all outlines for the drawing animation */
+         
         .bug-section .bug-outline {
-             stroke-dasharray: var(--length); /* Set by JS */
-             stroke-dashoffset: var(--length); /* Set by JS */
+             stroke-dasharray: var(--length); 
+             stroke-dashoffset: var(--length); 
         }
     </style>
 </head>

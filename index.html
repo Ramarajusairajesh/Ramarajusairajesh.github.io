@@ -3,99 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colorful Squares</title>
+    <title>My site</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for the triangle pointer */
-        .triangle-down {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid #fff; /* Match the background of the click me box */
-            position: absolute;
-            bottom: -10px; /* Position below the box */
-            left: 50%;
-            transform: translateX(-50%);
+        body {
+            min-height: 100vh;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Cinzel Decorative', cursive;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Basic animation for a simple "cracking" simulation */
-        @keyframes crack {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; border-color: #d1d5db; } /* Initial silver border, maintain centering */
-            50% { transform: translate(-50%, -50%) scale(1.02); opacity: 0.9; border-color: #facc15; } /* Scale up slightly, golden border, maintain centering */
-            100% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.7; border-color: #facc15; } /* Scale down slightly, golden border, reduced opacity, maintain centering */
-        }
-
-        .cracking {
-            animation: crack 0.5s ease-in-out forwards;
-        }
-
-        /* Style for the cracked text - Kept in case you want to re-add later, but not used in JS now */
-        .cracked-text {
-            color: #ef4444; /* Red color for "CRACKED!" */
+        #textBox {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 2rem;
+            background-color: black;
+            border-radius: 0;
+            color: #d1d5db;
+            text-align: left;
+            transition: all 500ms ease-in-out;
+            z-index: 1;
+            margin: 0;
+            box-sizing: border-box;
+            overflow-y: auto;
             font-weight: bold;
+            flex-grow: 1;
+        }
+
+        #textBox > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #textBox p {
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        #textBox p:first-child {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-top: 0;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #a0a0a0;
+            text-align: center;
+        }
+
+        .tech-stack h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .tech-stack ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tech-stack li {
+            background-color: #333;
+            color: #d1d5db;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        #clickMeBox {
+            position: relative;
+            margin-top: 2.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            align-self: center;
+        }
+
+        #clickMeBox > div:first-child {
+            position: relative;
+            overflow: hidden;
+            background-color: black;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            border: 2px solid #a0a0a0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            width: auto;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            width: 100%;
+            padding: 1.5rem 1rem;
+            background-color: #333;
+            color: #d1d5db;
+            text-align: center;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        footer .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-black">
+<body>
 
-    <div class="relative w-full max-w-md aspect-square grid grid-cols-2 grid-rows-2 gap-0 overflow-hidden rounded-lg shadow-xl">
-        <div class="flex items-center justify-center text-white text-2xl font-bold"></div>
-        <div class="flex items-center justify-center text-white text-2xl font-bold"></div>
-        <div class="flex items-center justify-center text-white text-2xl font-bold"></div>
-        <div class="flex items-center justify-center text-white text-2xl font-bold"></div>
+    <div id="textBox">
+        <div>
+            <p>Who are you?</p>
+            <p>Hail and well met, traveler.</p>
+            <p>I am known in the old tongue as Vanitas, Flamebound Scribe of the Ebon Spire. Born of twilight and tempered by wyrmfire, I walk the winding paths where shadow and legend entwine. I have lingered where moonlight dares not tread, and my oath is etched in the very essence of dragonflame.</p>
+            <p>But enough of the ancient tongues. Greetings! I am Sai Rajesh Ramaraju, though in everyday circles, I am known simply as Rajesh. In the realm of social media, I go by Vanitas.</p>
+            <p>I am a software developer and cybersecurity researcher. In simpler terms: I build software, and then I break it to ensure it remains unshaken. With a Bachelor's degree in Computer Science, I’ve forged my path in the intricate art of both creation and destruction in the digital world.</p>
+            <p>Welcome to my corner of the web, where code and creativity collide. I am deeply passionate about crafting scalable, reliable backend systems and the tools that power them. As a recent computer science graduate, I’ve spent my time mastering the core principles of software design, cloud technologies, and modern DevOps practices. Now, I’m eager to contribute to the ever-evolving world of software.</p>
+            <p>As you've no doubt gathered, I have a love for the old ways—the language of dragons and the tales that live in the pages of timeless books. I’m a fantasy enthusiast, captivated by worlds of magic, myth, and the unknown.</p>
 
-        <div id="textBox" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 h-1/5 flex items-center justify-center p-4 bg-black border-4 border-gray-400 rounded-lg text-gray-300 text-center transition-all duration-500 ease-in-out">
-            <div class="flex flex-col items-center justify-center">
-                <p class="text-lg font-semibold">Hello there , welcome to my page</p>
-                <p class="text-sm mt-2">Hello, I am Rajesh an engineer grad</p>
-				<p class="text-sm mt-2">A person who both loves and hates coding, loves technology</p>
+            <div class="tech-stack">
+                <h3>Tech Stack</h3>
+                <ul>
+                    <li>Java</li>
+                    <li>Python</li>
+                    <li>Shell Scripting</li>
+                    <li>Docker</li>
+                    <li>Kubernetes</li>
+                    <li>GitHub Actions</li>
+                    <li>AWS</li>
+                    <li>FastAPI</li>
+                    <li>PostgreSQL</li>
+                    <li>MySQL</li>
+                    <li>Redis</li>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>C</li>
+                    <li>System Programming</li>
+                    <li>Networking</li>
+                    <li>Network Programming</li>
+                    <li>C++</li>
+                    <li>Kernel</li>
+                    <li>Win32 API</li>
+                </ul>
+            </div>
+
+            <div id="clickMeBox">
+                <div> Continue
+                </div>
             </div>
         </div>
-
-        <div id="clickMeBox" class="absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-full cursor-pointer z-10">
-            <div class="bg-white text-blue-600 px-4 py-2 rounded-lg shadow-md flex items-center justify-center">
-                <span class="mr-2">Click me!</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd" />
-                </svg>
-            </div>
-            <div class="triangle-down"></div>
-        </div>
-
     </div>
 
+    <footer>
+        <div class="footer-links">
+            <a href="https://github.com/Ramarajusairajesh" target="_blank">GitHub</a>
+            <a href="https://x.com/ramarajusairaj"_blank">X.com</a>
+            <a href="https://www.linkedin.com/in/sai-rajesh-ramaraju-082478191/" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
     <script>
-        // Target the #textBox div directly
-        const textBox = document.getElementById('textBox');
         const clickMeBox = document.getElementById('clickMeBox');
-        // Updated the redirect URL to home.html
         const redirectUrl = 'home.html';
 
-        // Function to apply the cracking effect and redirect (used for the timed redirect)
-        function crackAndRedirectTimed() {
-             // Hide the click me box if it's still visible
-            clickMeBox.style.display = 'none';
-
-            // Apply the cracking animation class (border turns golden)
-            textBox.classList.add('cracking');
-
-            // Wait a moment for the effect before redirecting
-            setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 1000); // Redirect after 1 second
-        }
-
-        // Set a timer for the cracking effect after 20 seconds
-        const timer = setTimeout(crackAndRedirectTimed, 20000); // 20000 milliseconds = 20 seconds
-
-        // Add click listener to the "Click me" box
         clickMeBox.addEventListener('click', () => {
-            clearTimeout(timer); // Clear the automatic timer
-            clickMeBox.style.display = 'none'; // Hide the click me box immediately
-            window.location.href = redirectUrl; // Redirect immediately
+            clickMeBox.style.display = 'none';
+            window.location.href = redirectUrl;
         });
-
     </script>
 
 </body>
