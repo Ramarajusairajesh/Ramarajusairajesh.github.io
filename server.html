@@ -1,165 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Containers, Logging, and Cloud Native</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Containers, Logging, and Cloud Native</title>
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<style>
+		body {
+			font-family: "Inter", sans-serif;
+			/* Using Inter font */
+		}
+	</style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-    <header class="bg-blue-600 text-white p-6 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold">Cloud Native Insights</h1>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="networking.html" class="hover:underline">Networking</a></li>
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="security_exploits.html" class="hover:underline">Security & Exploits</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body class="bg-blue-950 font-sans leading-normal tracking-normal">
 
-    <main class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-        <article class="prose lg:prose-xl max-w-none">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Containers, Logging, and Kubernetes in the Cloud Native World</h2>
-            <p class="text-gray-700 text-lg mb-8">
-                The cloud-native landscape is dominated by concepts like containers, efficient logging, and Kubernetes. This post explores these key technologies and their interplay.
-            </p>
+	<header class="bg-blue-950 text-white p-6 shadow-md">
+		<div class="container mx-auto flex justify-between items-center">
+			<h1 class="text-3xl font-bold">Servers And Containers</h1>
+			<nav>
+				<ul class="flex space-x-4">
+					<li><a href="networking.html" class="hover:underline">Networking</a></li>
+					<li><a href="os.html" class="hover:underline">OS</a></li>
+					<li><a href="bugs.html" class="hover:underline">Security & Exploits</a></li>
+					<li><a href="home.html" class="hover:underline">Home</a></li>
 
-            <section class="mb-10">
-                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Containers: Lightweight Virtualization</h3>
-                <p class="text-gray-700 mb-4">
-                    Containers package an application and all its dependencies (libraries, configuration files, etc.) into a single, isolated unit. Unlike virtual machines, containers share the host OS kernel, making them much lighter and faster to start.
-                </p>
+				</ul>
+			</nav>
+		</div>
+	</header>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Docker: The Container Standard</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>Docker Images:</strong> Read-only templates used to create containers.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>FROM alpine:latest
-RUN apk add --no-cache nginx
-COPY index.html /var/www/localhost/htdocs/
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: A Dockerfile defining an Nginx web server image.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Docker Containers:</strong> Runnable instances of Docker images.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>docker build -t my-nginx-app .
-docker run -d -p 8080:80 my-nginx-app</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Building a Docker image and running a container, mapping host port 8080 to container port 80.</em></p>
-                    </li>
-                </ul>
-            </section>
+	<main class="container mx-auto mt-8 p-6 bg-blue-950 rounded-lg shadow-md">
+		<article class="prose lg:prose-xl max-w-none bg-blue-900 p-6 rounded-lg">
+			<h2 class="text-4xl font-extrabold text-gray-100 mb-6">Containers, Logging, and Kubernetes in the Cloud
+				Native World</h2>
+			<p class="text-gray-300 text-lg mb-8">
+				The cloud-native landscape is dominated by concepts like containers, efficient logging, and Kubernetes.
+				This post explores these key technologies and their interplay.
+			</p>
 
-            <section class="mb-10">
-                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Logging: The Eyes and Ears of Your Systems</h3>
-                <p class="text-gray-700 mb-4">
-                    Effective logging is critical for monitoring, debugging, and understanding the behavior of applications and infrastructure. In a distributed environment, centralized logging becomes paramount.
-                </p>
+			<section class="mb-10">
+				<h3 class="text-3xl font-semibold text-gray-100 mb-4">Containers: Lightweight Virtualization</h3>
+				<p class="text-gray-300 mb-4">
+					Containers package an application and all its dependencies (libraries, configuration files, etc.)
+					into a single, isolated unit. Unlike virtual machines, containers share the host OS kernel, making
+					them much lighter and faster to start.
+				</p>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Linux Logging:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>Syslog:</strong> A standard for sending and receiving log messages across a network.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>tail -f /var/log/syslog</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Viewing real-time system logs on a Linux machine.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Journald:</strong> Systemd's logging system, which centralizes logs from various sources.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>journalctl -u nginx.service</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Checking logs specifically for the Nginx service using journalctl.</em></p>
-                    </li>
-                </ul>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Docker: The Container Standard</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>Docker Images:</strong> Read-only templates used to create containers.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>FROM
+								alpine:latest
+								RUN apk add --no-cache nginx
+								COPY index.html /var/www/localhost/htdocs/
+								EXPOSE 80
+								CMD ["nginx", "-g", "daemon off;"]</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: A Dockerfile defining an Nginx web server
+								image.</em></p>
+					</li>
+					<li class="mb-2"><strong>Docker Containers:</strong> Runnable instances of Docker images.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>docker
+								build -t my-nginx-app .
+								docker run -d -p 8080:80 my-nginx-app</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Building a Docker image and running a
+								container, mapping host port 8080 to container port 80.</em></p>
+					</li>
+				</ul>
+			</section>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Server Logging Best Practices:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>Centralized Logging:</strong> Aggregate logs from all servers into a single platform (e.g., ELK Stack - Elasticsearch, Logstash, Kibana, or Splunk).
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Using Logstash to collect logs from various web servers and send them to Elasticsearch for indexing, then visualizing with Kibana.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Structured Logging:</strong> Log data in a consistent, machine-readable format (e.g., JSON) for easier parsing and analysis.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>{"timestamp": "2025-05-23T10:30:00Z", "level": "INFO", "message": "User logged in", "user_id": "123", "ip_address": "192.168.1.100"}</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: A structured log entry from an application.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Log Retention:</strong> Define policies for how long logs are stored based on compliance and operational needs.</li>
-                </ul>
-            </section>
+			<section class="mb-10">
+				<h3 class="text-3xl font-semibold text-gray-100 mb-4">Logging: The Eyes and Ears of Your Systems</h3>
+				<p class="text-gray-300 mb-4">
+					Effective logging is critical for monitoring, debugging, and understanding the behavior of
+					applications and infrastructure. In a distributed environment, centralized logging becomes
+					paramount.
+				</p>
 
-            <section class="mb-10">
-                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Kubernetes (K8s): Orchestrating Containers</h3>
-                <p class="text-gray-700 mb-4">
-                    Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. It provides a robust framework for running highly available and resilient microservices.
-                </p>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Linux Logging:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>Syslog:</strong> A standard for sending and receiving log messages across a
+						network.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>tail -f
+								/var/log/syslog</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Viewing real-time system logs on a Linux
+								machine.</em></p>
+					</li>
+					<li class="mb-2"><strong>Journald:</strong> Systemd's logging system, which centralizes logs from
+						various sources.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>journalctl
+								-u nginx.service</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Checking logs specifically for the Nginx
+								service using journalctl.</em></p>
+					</li>
+				</ul>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Key Kubernetes Concepts:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>Pods:</strong> The smallest deployable units in Kubernetes, representing a single instance of a running process in a cluster. A pod can contain one or more containers.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>apiVersion: v1
-kind: Pod
-metadata:
-  name: my-nginx-pod
-spec:
-  containers:
-  - name: nginx
-    image: nginx:latest
-    ports:
-    - containerPort: 80</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: A basic Kubernetes Pod definition for an Nginx container.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Deployments:</strong> Higher-level objects that manage the desired state of a set of Pods, enabling declarative updates.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: A Deployment ensuring 3 Nginx Pods are always running.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Services:</strong> An abstract way to expose an application running on a set of Pods as a network service.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>apiVersion: v1
-kind: Service
-metadata:
-  name: my-nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: A Service exposing the Nginx application to the internet via a load balancer.</em></p>
-                    </li>
-                </ul>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Server Logging Best Practices:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>Centralized Logging:</strong> Aggregate logs from all servers into a single
+						platform (e.g., ELK Stack - Elasticsearch, Logstash, Kibana, or Splunk).
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Using Logstash to collect logs from various
+								web servers and send them to Elasticsearch for indexing, then visualizing with
+								Kibana.</em></p>
+					</li>
+					<li class="mb-2"><strong>Structured Logging:</strong> Log data in a consistent, machine-readable
+						format (e.g., JSON) for easier parsing and analysis.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>{"timestamp": "2025-05-23T10:30:00Z", "level": "INFO", "message": "User logged in",
+								"user_id": "123", "ip_address": "192.168.1.100"}</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: A structured log entry from an
+								application.</em></p>
+					</li>
+					<li class="mb-2"><strong>Log Retention:</strong> Define policies for how long logs are stored based
+						on compliance and operational needs.</li>
+				</ul>
+			</section>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Kubernetes Logging:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>Container Logs (Stdout/Stderr):</strong> Best practice is for applications to write logs to stdout and stderr, which Kubernetes collects.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>kubectl logs my-nginx-pod</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Retrieving logs from a specific Pod.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Node-level Logging Agents:</strong> Tools like Fluentd or Filebeat deployed as DaemonSets to collect logs from all containers on a node and forward them to a centralized logging system.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Fluentd running on each Kubernetes node, tailing container log files and sending them to an Elasticsearch cluster.</em></p>
-                    </li>
-                </ul>
-            </section>
+			<section class="mb-10">
+				<h3 class="text-3xl font-semibold text-gray-100 mb-4">Kubernetes (K8s): Orchestrating Containers</h3>
+				<p class="text-gray-300 mb-4">
+					Kubernetes is an open-source container orchestration platform that automates the deployment,
+					scaling, and management of containerized applications. It provides a robust framework for running
+					highly available and resilient microservices.
+				</p>
 
-            <footer class="text-gray-600 text-sm mt-8 pt-4 border-t border-gray-200">
-                <p>&copy; 2025 Tech Blog. All rights reserved.</p>
-            </footer>
-        </article>
-    </main>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Key Kubernetes Concepts:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>Pods:</strong> The smallest deployable units in Kubernetes, representing a
+						single instance of a running process in a cluster. A pod can contain one or more containers.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>apiVersion: v1
+								kind: Pod
+								metadata:
+								name: my-nginx-pod
+								spec:
+								containers:
+								- name: nginx
+								image: nginx:latest
+								ports:
+								- containerPort: 80</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: A basic Kubernetes Pod definition for an
+								Nginx container.</em></p>
+					</li>
+					<li class="mb-2"><strong>Deployments:</strong> Higher-level objects that manage the desired state of
+						a set of Pods, enabling declarative updates.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>apiVersion: apps/v1
+								kind: Deployment
+								metadata:
+								name: nginx-deployment
+								spec:
+								replicas: 3
+								selector:
+								matchLabels:
+								app: nginx
+								template:
+								metadata:
+								labels:
+								app: nginx
+								spec:
+								containers:
+								- name: nginx
+								image: nginx:1.14.2
+								ports:
+								- containerPort: 80</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: A Deployment ensuring 3 Nginx Pods are always
+								running.</em></p>
+					</li>
+					<li class="mb-2"><strong>Services:</strong> An abstract way to expose an application running on a
+						set of Pods as a network service.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>apiVersion: v1
+								kind: Service
+								metadata:
+								name: my-nginx-service
+								spec:
+								selector:
+								app: nginx
+								ports:
+								- protocol: TCP
+								port: 80
+								targetPort: 80
+								type: LoadBalancer</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: A Service exposing the Nginx application to
+								the internet via a load balancer.</em></p>
+					</li>
+				</ul>
+
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Kubernetes Logging:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>Container Logs (Stdout/Stderr):</strong> Best practice is for applications
+						to write logs to stdout and stderr, which Kubernetes collects.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>kubectl
+								logs my-nginx-pod</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Retrieving logs from a specific Pod.</em></p>
+					</li>
+					<li class="mb-2"><strong>Node-level Logging Agents:</strong> Tools like Fluentd or Filebeat deployed
+						as DaemonSets to collect logs from all containers on a node and forward them to a centralized
+						logging system.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Fluentd running on each Kubernetes node,
+								tailing container log files and sending them to an Elasticsearch cluster.</em></p>
+					</li>
+				</ul>
+			</section>
+
+			<footer class="text-gray-400 text-sm mt-8 pt-4 border-t border-gray-700">
+				<p>&copy; 2025 Tech Blog. All rights reserved.</p>
+			</footer>
+		</article>
+	</main>
 
 </body>
+
 </html>

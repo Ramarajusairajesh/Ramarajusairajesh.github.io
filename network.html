@@ -1,157 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Networking Fundamentals: Protocols, Routing, and Switching</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Networking Fundamentals: Protocols, Routing, and Switching</title>
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<style>
+		body {
+			/* Setting the body background to a very dark blue from Tailwind's palette */
+			background-color: theme('colors.blue.950');
+			font-family: "Inter", sans-serif;
+			/* Using Inter font as per instructions */
+		}
+	</style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-    <header class="bg-blue-600 text-white p-6 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold">Networking Fundamentals</h1>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="containers_logging_cloud.html" class="hover:underline">Containers & Cloud</a></li>
-                    <li><a href="security_exploits.html" class="hover:underline">Security & Exploits</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body class="bg-blue-950 font-sans leading-normal tracking-normal">
 
-    <main class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-        <article class="prose lg:prose-xl max-w-none">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Unraveling the Network: Protocols, Routing, and Switching</h2>
-            <p class="text-gray-700 text-lg mb-8">
-                Networking is the backbone of modern communication. Understanding its core components – protocols, routing, and switching – is crucial for anyone involved in IT. This blog post dives into these fundamental concepts with practical examples.
-            </p>
+	<header class="bg-blue-950 text-white p-6 shadow-md">
+		<div class="container mx-auto flex justify-between items-center">
+			<h1 class="text-3xl font-bold">Networking</h1>
+			<nav>
+				<ul class="flex space-x-4">
+					<li><a href="server.html" class="hover:underline">Containers & Cloud</a></li>
+					<li><a href="bugs.html" class="hover:underline">Security & Exploits</a></li>
+					<li><a href="os.html" class="hover:underline">OS</a></li>
+					<li><a href="home.html" class="hover:underline">Home</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
 
-            <section class="mb-10">
-                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Network Protocols: The Language of Communication</h3>
-                <p class="text-gray-700 mb-4">
-                    Protocols are standardized sets of rules that allow electronic devices to communicate with each other. They dictate how data is formatted, transmitted, and received, ensuring seamless interaction across diverse systems.
-                </p>
+	<main class="container mx-auto mt-8 p-6 bg-blue-950 rounded-lg shadow-md">
+		<article class="prose lg:prose-xl max-w-none bg-blue-900 p-6 rounded-lg">
+			<h2 class="text-4xl font-extrabold text-gray-100 mb-6">Unraveling the Network: Protocols, Routing, and
+				Switching</h2>
+			<p class="text-gray-300 text-lg mb-8">
+				Networking is the backbone of modern communication. Understanding its core components – protocols,
+				routing, and switching – is crucial for anyone involved in IT. This blog post dives into these
+				fundamental concepts with practical examples.
+			</p>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Common Application Layer Protocols:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>HTTP (Hypertext Transfer Protocol):</strong> Used for transmitting web pages and other web content.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>GET /index.html HTTP/1.1
-Host: www.example.com
-User-Agent: Mozilla/5.0</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: When you type a URL in your browser, HTTP is used to request the web page from the server.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>FTP (File Transfer Protocol):</strong> For transferring files between a client and a server.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>ftp> open ftp.example.com
-Connected to ftp.example.com.
-220 (vsFTPd 3.0.3)
-Name (ftp.example.com:user): anonymous
-331 Please specify the password.
-Password:
-230 Login successful.
-ftp> get myfile.txt</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Downloading a large file from a remote server using an FTP client.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>SMTP (Simple Mail Transfer Protocol):</strong> Used for sending email.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>HELO mydomain.com
-MAIL FROM:&lt;sender@mydomain.com>
-RCPT TO:&lt;recipient@example.com>
-DATA
-Subject: Hello from SMTP!
+			<section class="mb-10">
+				<h3 class="text-3xl font-semibold text-gray-100 mb-4">Network Protocols: The Language of Communication
+				</h3>
+				<p class="text-gray-300 mb-4">
+					Protocols are standardized sets of rules that allow electronic devices to communicate with each
+					other. They dictate how data is formatted, transmitted, and received, ensuring seamless interaction
+					across diverse systems.
+				</p>
 
-This is a test email.
-.
-QUIT</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Your email client uses SMTP to send an email to a recipient's mail server.</em></p>
-                    </li>
-                </ul>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Common Application Layer Protocols:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>HTTP (Hypertext Transfer Protocol):</strong> Used for transmitting web
+						pages and other web content.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>GET
+								/index.html HTTP/1.1
+								Host: www.example.com
+								User-Agent: Mozilla/5.0</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: When you type a URL in your browser, HTTP is
+								used to request the web page from the server.</em></p>
+					</li>
+					<li class="mb-2"><strong>FTP (File Transfer Protocol):</strong> For transferring files between a
+						client and a server.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>ftp> open
+								ftp.example.com
+								Connected to ftp.example.com.
+								220 (vsFTPd 3.0.3)
+								Name (ftp.example.com:user): anonymous
+								331 Please specify the password.
+								Password:
+								230 Login successful.
+								ftp> get myfile.txt</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Downloading a large file from a remote server
+								using an FTP client.</em></p>
+					</li>
+					<li class="mb-2"><strong>SMTP (Simple Mail Transfer Protocol):</strong> Used for sending email.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>HELO
+								mydomain.com
+								MAIL FROM:&lt;sender@mydomain.com>
+								RCPT TO:&lt;recipient@example.com>
+								DATA
+								Subject: Hello from SMTP!
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Transport Layer Protocols:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>TCP (Transmission Control Protocol):</strong> Connection-oriented, reliable, and ensures ordered delivery of packets.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Web Browse (HTTP) and file transfers (FTP) heavily rely on TCP to ensure all data arrives correctly and in order. If a packet is lost, TCP retransmits it.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>UDP (User Datagram Protocol):</strong> Connectionless, unreliable, and faster than TCP, often used for real-time applications.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Online gaming, live video streaming, and DNS lookups often use UDP because speed is prioritized over guaranteed delivery. A dropped packet might result in a minor glitch, but not a complete stoppage.</em></p>
-                    </li>
-                </ul>
-            </section>
+								This is a test email.
+								.
+								QUIT</code></pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Your email client uses SMTP to send an email
+								to a recipient's mail server.</em></p>
+					</li>
+				</ul>
 
-            <section class="mb-10">
-                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Routing: Directing Traffic Across Networks</h3>
-                <p class="text-gray-700 mb-4">
-                    Routing is the process of selecting the best path for data packets to travel from a source network to a destination network. Routers are the devices responsible for this task, operating at Layer 3 (Network Layer) of the OSI model.
-                </p>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Transport Layer Protocols:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>TCP (Transmission Control Protocol):</strong> Connection-oriented,
+						reliable, and ensures ordered delivery of packets.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Web Browse (HTTP) and file transfers (FTP)
+								heavily rely on TCP to ensure all data arrives correctly and in order. If a packet is
+								lost, TCP retransmits it.</em></p>
+					</li>
+					<li class="mb-2"><strong>UDP (User Datagram Protocol):</strong> Connectionless, unreliable, and
+						faster than TCP, often used for real-time applications.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Online gaming, live video streaming, and DNS
+								lookups often use UDP because speed is prioritized over guaranteed delivery. A dropped
+								packet might result in a minor glitch, but not a complete stoppage.</em></p>
+					</li>
+				</ul>
+			</section>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Routing Protocols:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>RIP (Routing Information Protocol):</strong> A distance-vector routing protocol that uses hop count as its metric. Simple but can be slow to converge.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: In a small, simple network, RIP might be configured to share routing information between routers. Router A might advertise that it can reach Network X in 2 hops, and Router B in 3 hops.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>OSPF (Open Shortest Path First):</strong> A link-state routing protocol that builds a complete topology map of the network, calculating the shortest path based on cost. More scalable and faster convergence than RIP.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: In enterprise networks, OSPF is widely used. Each router shares its directly connected links and their costs with other OSPF routers, building a consistent view of the network for efficient routing.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>BGP (Border Gateway Protocol):</strong> An exterior gateway protocol used to exchange routing information between different autonomous systems (AS) on the internet. It's the protocol that powers the internet's routing decisions.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: When you access a website hosted by Google, BGP is the protocol that directs traffic from your ISP's network (one AS) to Google's network (another AS) across the internet.</em></p>
-                    </li>
-                </ul>
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Static vs. Dynamic Routing:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>Static Routing:</strong> Manually configured routes. Ideal for small, stable networks.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.1</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: A network administrator manually adding a route on a router to reach a specific subnet through a known next-hop IP address.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Dynamic Routing:</strong> Routers learn routes automatically through routing protocols. Essential for large, complex, and constantly changing networks.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>Router(config)# router ospf 1
-Router(config-router)# network 10.0.0.0 0.0.0.255 area 0</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Enabling OSPF on a router so it can automatically discover and share routes with other OSPF-enabled routers.</em></p>
-                    </li>
-                </ul>
-            </section>
+			<section class="mb-10">
+				<h3 class="text-3xl font-semibold text-gray-100 mb-4">Routing: Directing Traffic Across Networks</h3>
+				<p class="text-gray-300 mb-4">
+					Routing is the process of selecting the best path for data packets to travel from a source network
+					to a destination network. Routers are the devices responsible for this task, operating at Layer 3
+					(Network Layer) of the OSI model.
+				</p>
 
-            <section class="mb-10">
-                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Switching: Connecting Devices Within a Network</h3>
-                <p class="text-gray-700 mb-4">
-                    Switching is the process of forwarding data frames between devices within the same local area network (LAN). Switches operate at Layer 2 (Data Link Layer) of the OSI model and use MAC addresses to make forwarding decisions.
-                </p>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Routing Protocols:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>RIP (Routing Information Protocol):</strong> A distance-vector routing
+						protocol that uses hop count as its metric. Simple but can be slow to converge.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: In a small, simple network, RIP might be
+								configured to share routing information between routers. Router A might advertise that
+								it can reach Network X in 2 hops, and Router B in 3 hops.</em></p>
+					</li>
+					<li class="mb-2"><strong>OSPF (Open Shortest Path First):</strong> A link-state routing protocol
+						that builds a complete topology map of the network, calculating the shortest path based on cost.
+						More scalable and faster convergence than RIP.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: In enterprise networks, OSPF is widely used.
+								Each router shares its directly connected links and their costs with other OSPF routers,
+								building a consistent view of the network for efficient routing.</em></p>
+					</li>
+					<li class="mb-2"><strong>BGP (Border Gateway Protocol):</strong> An exterior gateway protocol used
+						to exchange routing information between different autonomous systems (AS) on the internet. It's
+						the protocol that powers the internet's routing decisions.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: When you access a website hosted by Google,
+								BGP is the protocol that directs traffic from your ISP's network (one AS) to Google's
+								network (another AS) across the internet.</em></p>
+					</li>
+				</ul>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Static vs. Dynamic Routing:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>Static Routing:</strong> Manually configured routes. Ideal for small,
+						stable networks.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.1.1</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: A network administrator manually adding a
+								route on a router to reach a specific subnet through a known next-hop IP address.</em>
+						</p>
+					</li>
+					<li class="mb-2"><strong>Dynamic Routing:</strong> Routers learn routes automatically through
+						routing protocols. Essential for large, complex, and constantly changing networks.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>Router(config)# router ospf 1
+								Router(config-router)# network 10.0.0.0 0.0.0.255 area 0</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Enabling OSPF on a router so it can
+								automatically discover and share routes with other OSPF-enabled routers.</em></p>
+					</li>
+				</ul>
+			</section>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">How Switches Work:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2">Switches maintain a MAC address table (CAM table) that maps MAC addresses to specific ports.
-                    </li>
-                    <li class="mb-2">When a frame arrives, the switch examines its destination MAC address and looks it up in the CAM table.
-                    </li>
-                    <li class="mb-2">If found, the frame is forwarded only out the corresponding port. If not found, the frame is flooded out all ports (except the ingress port).
-                    </li>
-                </ul>
+			<section class="mb-10">
+				<h3 class="text-3xl font-semibold text-gray-100 mb-4">Switching: Connecting Devices Within a Network
+				</h3>
+				<p class="text-gray-300 mb-4">
+					Switching is the process of forwarding data frames between devices within the same local area
+					network (LAN). Switches operate at Layer 2 (Data Link Layer) of the OSI model and use MAC addresses
+					to make forwarding decisions.
+				</p>
 
-                <h4 class="text-2xl font-medium text-gray-700 mb-3">Key Switching Concepts:</h4>
-                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
-                    <li class="mb-2"><strong>VLANs (Virtual Local Area Networks):</strong> Segmenting a single physical switch into multiple logical broadcast domains. This enhances security and network performance.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>Switch(config)# vlan 10
-Switch(config-vlan)# name Sales
-Switch(config)# interface FastEthernet0/1
-Switch(config-if)# switchport mode access
-Switch(config-if)# switchport access vlan 10</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Creating a VLAN for the "Sales" department on a switch and assigning specific ports to it, isolating their traffic from other departments.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Spanning Tree Protocol (STP):</strong> Prevents network loops by blocking redundant paths in a switched network.
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: If you have two switches connected by multiple cables, STP will automatically block one of the paths to prevent a broadcast storm, ensuring a loop-free topology.</em></p>
-                    </li>
-                    <li class="mb-2"><strong>Trunking (802.1Q):</strong> Allows multiple VLANs to share a single physical link between switches.
-                        <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>Switch(config-if)# switchport mode trunk
-Switch(config-if)# switchport trunk encapsulation dot1q
-Switch(config-if)# switchport trunk allowed vlan 10,20,30</code></pre>
-                        <p class="text-sm text-gray-500 mt-1"><em>Example: Configuring a port between two switches as a trunk to carry traffic for VLANs 10, 20, and 30 over that single link.</em></p>
-                    </li>
-                </ul>
-            </section>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">How Switches Work:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2">Switches maintain a MAC address table (CAM table) that maps MAC addresses to
+						specific ports.
+					</li>
+					<li class="mb-2">When a frame arrives, the switch examines its destination MAC address and looks it
+						up in the CAM table.
+					</li>
+					<li class="mb-2">If found, the frame is forwarded only out the corresponding port. If not found, the
+						frame is flooded out all ports (except the ingress port).
+					</li>
+				</ul>
 
-            <footer class="text-gray-600 text-sm mt-8 pt-4 border-t border-gray-200">
-            </footer>
-        </article>
-    </main>
+				<h4 class="text-2xl font-medium text-gray-200 mb-3">Key Switching Concepts:</h4>
+				<ul class="list-disc list-inside ml-6 text-gray-300 mb-4">
+					<li class="mb-2"><strong>VLANs (Virtual Local Area Networks):</strong> Segmenting a single physical
+						switch into multiple logical broadcast domains. This enhances security and network performance.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>Switch(config)# vlan 10
+								Switch(config-vlan)# name Sales
+								Switch(config)# interface FastEthernet0/1
+								Switch(config-if)# switchport mode access
+								Switch(config-if)# switchport access vlan 10</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Creating a VLAN for the "Sales" department on
+								a switch and assigning specific ports to it, isolating their traffic from other
+								departments.</em></p>
+					</li>
+					<li class="mb-2"><strong>Spanning Tree Protocol (STP):</strong> Prevents network loops by blocking
+						redundant paths in a switched network.
+						<p class="text-sm text-gray-400 mt-1"><em>Example: If you have two switches connected by
+								multiple cables, STP will automatically block one of the paths to prevent a broadcast
+								storm, ensuring a loop-free topology.</em></p>
+					</li>
+					<li class="mb-2"><strong>Trunking (802.1Q):</strong> Allows multiple VLANs to share a single
+						physical link between switches.
+						<pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto">
+							<code>Switch(config-if)# switchport mode trunk
+								Switch(config-if)# switchport trunk encapsulation dot1q
+								Switch(config-if)# switchport trunk allowed vlan 10,20,30</code>
+						</pre>
+						<p class="text-sm text-gray-400 mt-1"><em>Example: Configuring a port between two switches as a
+								trunk to carry traffic for VLANs 10, 20, and 30 over that single link.</em></p>
+					</li>
+				</ul>
+			</section>
+
+			<footer class="text-gray-400 text-sm mt-8 pt-4 border-t border-gray-700">
+			</footer>
+		</article>
+	</main>
 
 </body>
+
 </html>
