@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Security Vulnerabilities & Exploits</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <header class="bg-blue-600 text-white p-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Cyber Security Deep Dive</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="networking.html" class="hover:underline">Networking</a></li>
+                    <li><a href="containers_logging_cloud.html" class="hover:underline">Containers & Cloud</a></li>
+                    <li><a href="#" class="hover:underline">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+        <article class="prose lg:prose-xl max-w-none">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Demystifying Web Security: Bugs, Vulnerabilities, and Top Exploits</h2>
+            <p class="text-gray-700 text-lg mb-8">
+                Web applications are constantly targeted by malicious actors. Understanding common vulnerabilities and exploits is crucial for developers and security professionals to build and defend robust systems.
+            </p>
+
+            <section class="mb-10">
+                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Common Web Vulnerabilities</h3>
+                <p class="text-gray-700 mb-4">
+                    These are some of the most prevalent flaws found in web applications that attackers actively exploit.
+                </p>
+
+                <h4 class="text-2xl font-medium text-gray-700 mb-3">1. Cross-Site Scripting (XSS)</h4>
+                <p class="text-gray-700 mb-2">
+                    XSS allows attackers to inject malicious client-side scripts into web pages viewed by other users. This can lead to session hijacking, defacement, or redirection to malicious sites.
+                </p>
+                <p class="text-gray-700 font-semibold mb-1">Example (Reflected XSS):</p>
+                <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>URL: https://example.com/search?query=&lt;script>alert('XSS Attack!');&lt;/script>
+</code></pre>
+                <p class="text-sm text-gray-500 mt-1 mb-4"><em>Explanation: If the `query` parameter is not properly sanitized, the injected script will execute in the user's browser, displaying an alert.</em></p>
+
+                <h4 class="text-2xl font-medium text-gray-700 mb-3">2. XML External Entity (XXE) Injection</h4>
+                <p class="text-gray-700 mb-2">
+                    XXE vulnerabilities occur when an XML parser processes XML input containing references to external entities that are not properly secured. This can lead to local file inclusion (LFI), server-side request forgery (SSRF), or even remote code execution (RCE).
+                </p>
+                <p class="text-gray-700 font-semibold mb-1">Example (LFI via XXE):</p>
+                <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>POST /api/xml_processor HTTP/1.1
+Content-Type: application/xml
+
+&lt;?xml version="1.0"?>
+&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
+&lt;data>&xxe;&lt;/data></code></pre>
+                <p class="text-sm text-gray-500 mt-1 mb-4"><em>Explanation: The XML parser will attempt to read the `/etc/passwd` file and include its content in the response, potentially disclosing sensitive system information.</em></p>
+
+                <h4 class="text-2xl font-medium text-gray-700 mb-3">3. Server-Side Request Forgery (SSRF)</h4>
+                <p class="text-gray-700 mb-2">
+                    SSRF occurs when a web application fetches a remote resource without validating the user-supplied URL. An attacker can manipulate the application to make requests to internal network resources or other external systems.
+                </p>
+                <p class="text-gray-700 font-semibold mb-1">Example (Accessing Internal API):</p>
+                <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>Request: GET /image?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/</code></pre>
+                <p class="text-sm text-gray-500 mt-1 mb-4"><em>Explanation: If the application processes this URL, it might fetch sensitive AWS metadata from an EC2 instance, potentially exposing temporary credentials.</em></p>
+
+                <h4 class="text-2xl font-medium text-gray-700 mb-3">4. SQL Injection (SQLi)</h4>
+                <p class="text-gray-700 mb-2">
+                    SQLi allows an attacker to interfere with the queries that an application makes to its database. This can enable them to view data they are not normally able to retrieve, modify database data, or even execute administrative operations on the database.
+                </p>
+                <p class="text-gray-700 font-semibold mb-1">Example (Bypassing Login):</p>
+                <pre class="bg-gray-800 text-white p-3 rounded-md text-sm mt-2 overflow-x-auto"><code>Username: ' OR '1'='1 --
+Password: any_password</code></pre>
+                <p class="text-sm text-gray-500 mt-1 mb-4"><em>Explanation: The SQL query becomes `SELECT * FROM users WHERE username='' OR '1'='1' -- AND password='...'`, which always evaluates to true, bypassing authentication.</em></p>
+            </section>
+
+            <section class="mb-10">
+                <h3 class="text-3xl font-semibold text-gray-800 mb-4">Top Exploits in the Wild (Illustrative Examples, not a comprehensive list of 30)</h3>
+                <p class="text-gray-700 mb-4">
+                    While a definitive "top 30" list changes frequently, these are examples of vulnerabilities that have seen widespread exploitation or high impact in recent years. Each usually has a CVE (Common Vulnerabilities and Exposures) identifier.
+                </p>
+
+                <ul class="list-disc list-inside ml-6 text-gray-700 mb-4">
+                    <li class="mb-2"><strong>Log4Shell (CVE-2021-44228):</strong> A critical remote code execution (RCE) vulnerability in the Apache Log4j logging library.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Allowed attackers to execute arbitrary code on vulnerable servers by simply logging a malicious string. Had a massive impact globally.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>Microsoft Exchange Server Vulnerabilities (e.g., ProxyLogon - CVE-2021-26855):</strong> A chain of vulnerabilities allowing unauthenticated RCE on Microsoft Exchange servers.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Enabled attackers to gain full control of Exchange servers, leading to widespread data breaches and ransomware attacks.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>Zerologon (CVE-2020-1472):</strong> A critical elevation of privilege vulnerability in Microsoft's Netlogon Remote Protocol.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Allowed attackers to compromise a Windows domain controller and gain full administrative control over the entire domain.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>Atlassian Confluence RCE (CVE-2022-26134):</strong> An OGNL injection vulnerability in Atlassian Confluence Server and Data Center.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Permitted unauthenticated remote code execution on vulnerable Confluence instances.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>Spring4Shell (CVE-2022-22965):</strong> A remote code execution vulnerability affecting Spring Framework.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Allowed attackers to gain RCE on applications running certain versions of the Spring Framework, particularly on specific configurations.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>MOVEit Transfer SQL Injection (CVE-2023-34362):</strong> Multiple SQL injection vulnerabilities in the MOVEit Transfer web application.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Led to widespread data theft from organizations using the affected file transfer software.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>Citrix NetScaler / ADC Vulnerabilities (e.g., CVE-2019-19781):</strong> Various vulnerabilities, including directory traversal and remote code execution.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Allowed unauthenticated attackers to execute arbitrary code, leading to network compromise.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>VMware vCenter Server Vulnerabilities (e.g., CVE-2021-21972):</strong> Multiple vulnerabilities in the vSphere Client plugin.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Allowed attackers to execute arbitrary code on the underlying vCenter server, potentially gaining control over the entire virtualized infrastructure.</em></p>
+                    </li>
+                    <li class="mb-2"><strong>Fortinet FortiOS SSL VPN Vulnerabilities (e.g., CVE-2018-13379):</strong> Path traversal vulnerability allowing access to system files.
+                        <p class="text-sm text-gray-500 mt-1"><em>Impact: Allowed attackers to download sensitive files, including session files containing user credentials, from vulnerable FortiOS devices.</em></p>
+                    </li>
+                </ul>
+            </section>
+
+            <footer class="text-gray-600 text-sm mt-8 pt-4 border-t border-gray-200">
+            </footer>
+        </article>
+    </main>
+
+</body>
+</html>
