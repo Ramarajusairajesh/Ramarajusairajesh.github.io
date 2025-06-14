@@ -1,924 +1,720 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="scroll-smooth">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Sai Rajesh Ramaraju - Software Developer</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			line-height: 1.6;
-			color: #333;
-			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-			min-height: 100vh;
-			padding: 20px;
-		}
-
-		.container {
-			max-width: 1000px;
-			/* Default max-width for larger screens, will be overridden by media query */
-			margin: 0 auto;
-			background: white;
-			border-radius: 20px;
-			box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-			overflow: hidden;
-			animation: slideIn 0.8s ease-out;
-		}
-
-		@keyframes slideIn {
-			from {
-				opacity: 0;
-				transform: translateY(30px);
-			}
-
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
-		.header {
-			background: linear-gradient(135deg, #2c3e50, #34495e);
-			color: white;
-			padding: 40px;
-			text-align: center;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.nav-links {
-			position: absolute;
-			top: 20px;
-			right: 30px;
-			display: flex;
-			gap: 20px;
-			z-index: 10;
-		}
-
-		.nav-link {
-			color: white;
-			text-decoration: none;
-			padding: 8px 16px;
-			border-radius: 20px;
-			background: rgba(255, 255, 255, 0.1);
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			transition: all 0.3s ease;
-			font-weight: 500;
-			font-size: 0.9em;
-		}
-
-		.nav-link:hover {
-			background: rgba(255, 255, 255, 0.2);
-			transform: translateY(-2px);
-			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-		}
-
-		.header::before {
-			content: '';
-			position: absolute;
-			top: -50%;
-			left: -50%;
-			width: 200%;
-			height: 200%;
-			background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-			animation: shimmer 3s infinite;
-		}
-
-		@keyframes shimmer {
-			0% {
-				transform: translateX(-100%) translateY(-100%) rotate(30deg);
-			}
-
-			100% {
-				transform: translateX(100%) translateY(100%) rotate(30deg);
-			}
-		}
-
-		.header h1 {
-			font-size: 2.5em;
-			margin-bottom: 10px;
-			font-weight: 700;
-			position: relative;
-			z-index: 1;
-		}
-
-		.header .subtitle {
-			font-size: 1.2em;
-			opacity: 0.9;
-			margin-bottom: 20px;
-			position: relative;
-			z-index: 1;
-		}
-
-		.contact-info {
-			display: flex;
-			justify-content: center;
-			flex-wrap: wrap;
-			gap: 20px;
-			position: relative;
-			z-index: 1;
-		}
-
-		.contact-item {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			background: rgba(255, 255, 255, 0.1);
-			padding: 8px 15px;
-			border-radius: 25px;
-			backdrop-filter: blur(10px);
-			transition: transform 0.3s ease;
-		}
-
-		.contact-item:hover {
-			transform: translateY(-2px);
-			background: rgba(255, 255, 255, 0.2);
-		}
-
-		.contact-item a {
-			color: white;
-			text-decoration: none;
-		}
-
-		.main-content {
-			padding: 40px;
-		}
-
-		.section {
-			margin-bottom: 35px;
-		}
-
-		.section h2 {
-			font-size: 1.4em;
-			color: #2c3e50;
-			margin-bottom: 20px;
-			padding-bottom: 8px;
-			border-bottom: 3px solid #3498db;
-			position: relative;
-		}
-
-		.section h2::after {
-			content: '';
-			position: absolute;
-			bottom: -3px;
-			left: 0;
-			width: 50px;
-			height: 3px;
-			background: #e74c3c;
-			border-radius: 2px;
-		}
-
-		.skills-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 20px;
-		}
-
-		.skill-category {
-			background: #f8f9fa;
-			padding: 20px;
-			border-radius: 12px;
-			border-left: 4px solid #3498db;
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-		}
-
-		.skill-category:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-		}
-
-		.skill-category h3 {
-			color: #2c3e50;
-			margin-bottom: 10px;
-			font-size: 1.1em;
-		}
-
-		.skill-tags {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 8px;
-		}
-
-		.skill-tag {
-			background: linear-gradient(135deg, #3498db, #2980b9);
-			color: white;
-			padding: 4px 12px;
-			border-radius: 15px;
-			font-size: 0.85em;
-			font-weight: 500;
-			transition: transform 0.2s ease;
-		}
-
-		.skill-tag:hover {
-			transform: scale(1.05);
-		}
-
-		.education-item,
-		.experience-item {
-			background: #f8f9fa;
-			padding: 25px;
-			border-radius: 12px;
-			margin-bottom: 20px;
-			border-left: 4px solid #e74c3c;
-			transition: transform 0.3s ease;
-		}
-
-		.education-item:hover,
-		.experience-item:hover {
-			transform: translateX(5px);
-		}
-
-		.item-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			margin-bottom: 15px;
-			flex-wrap: wrap;
-		}
-
-		.item-title {
-			font-weight: 700;
-			color: #2c3e50;
-			font-size: 1.1em;
-		}
-
-		.item-date {
-			color: #7f8c8d;
-			font-weight: 600;
-			background: #ecf0f1;
-			padding: 4px 12px;
-			border-radius: 15px;
-		}
-
-		.item-subtitle {
-			color: #34495e;
-			font-style: italic;
-			margin-bottom: 10px;
-		}
-
-		.project-item {
-			background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-			padding: 25px;
-			border-radius: 15px;
-			margin-bottom: 25px;
-			border: 1px solid #dee2e6;
-			transition: all 0.3s ease;
-			position: relative;
-			overflow: hidden;
-		}
-
-		.project-item::before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 4px;
-			height: 100%;
-			background: linear-gradient(to bottom, #3498db, #e74c3c);
-		}
-
-		.project-item:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-		}
-
-		.project-header {
-			display: flex;
-			justify-content: space-between;
-			align-items: flex-start;
-			margin-bottom: 15px;
-			flex-wrap: wrap;
-		}
-
-		.project-title {
-			font-weight: 700;
-			color: #2c3e50;
-			font-size: 1.2em;
-			margin-bottom: 5px;
-		}
-
-		.tech-stack {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 6px;
-			margin-bottom: 15px;
-		}
-
-		.tech-tag {
-			background: linear-gradient(135deg, #e74c3c, #c0392b);
-			color: white;
-			padding: 3px 10px;
-			border-radius: 12px;
-			font-size: 0.8em;
-			font-weight: 600;
-		}
-
-		.project-points {
-			list-style: none;
-		}
-
-		.project-points li {
-			margin-bottom: 8px;
-			position: relative;
-			padding-left: 20px;
-			color: #34495e;
-		}
-
-		.project-points li::before {
-			content: '▶';
-			position: absolute;
-			left: 0;
-			color: #3498db;
-			font-size: 0.8em;
-		}
-
-		.achievements {
-			background: linear-gradient(135deg, #2c3e50, #34495e);
-			color: white;
-			padding: 25px;
-			border-radius: 15px;
-			margin-top: 20px;
-		}
-
-		.achievements h3 {
-			margin-bottom: 15px;
-			font-size: 1.2em;
-		}
-
-		.achievement-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-			gap: 15px;
-		}
-
-		.achievement-item {
-			background: rgba(255, 255, 255, 0.1);
-			padding: 15px;
-			border-radius: 10px;
-			backdrop-filter: blur(10px);
-			transition: transform 0.3s ease;
-		}
-
-		.achievement-item:hover {
-			transform: scale(1.05);
-		}
-
-		.achievement-item strong {
-			color: #3498db;
-			display: block;
-			margin-bottom: 5px;
-		}
-
-		/* Media queries for responsiveness */
-
-		/* Styles for PC (larger screens) */
-		@media (min-width: 769px) {
-			.container {
-				max-width: 60vw;
-				/* Set max-width to 60% of viewport width for PC */
-				width: 90%;
-				/* Ensure it doesn't become too wide on very large screens, but still fills most of the space */
-			}
-		}
-
-
-		/* Styles for Mobile (smaller screens) */
-		@media (max-width: 768px) {
-			body {
-				padding: 10px;
-			}
-
-			.container {
-				margin: 0 auto;
-				max-width: 100%;
-				/* Occupy full width on mobile */
-				border-radius: 10px;
-				box-shadow: none;
-				/* Lighter on mobile */
-			}
-
-			.header {
-				padding: 30px 15px;
-			}
-
-			.nav-links {
-				top: 10px;
-				right: 10px;
-				gap: 8px;
-			}
-
-			.nav-link {
-				padding: 5px 10px;
-				font-size: 0.75em;
-			}
-
-			.header h1 {
-				font-size: 1.8em;
-				margin-top: 10px;
-			}
-
-			.header .subtitle {
-				font-size: 1em;
-			}
-
-			.contact-info {
-				flex-direction: column;
-				align-items: center;
-				gap: 10px;
-			}
-
-			.contact-item {
-				padding: 6px 12px;
-				font-size: 0.9em;
-			}
-
-			.main-content {
-				padding: 20px 15px;
-			}
-
-			.section h2 {
-				font-size: 1.2em;
-				margin-bottom: 15px;
-			}
-
-			.skills-grid {
-				grid-template-columns: 1fr;
-				/* Stack skills on mobile */
-			}
-
-			.skill-category {
-				padding: 15px;
-			}
-
-			.skill-category h3 {
-				font-size: 1em;
-			}
-
-			.skill-tag {
-				font-size: 0.75em;
-				padding: 3px 10px;
-			}
-
-			.education-item,
-			.experience-item,
-			.project-item {
-				padding: 20px;
-				margin-bottom: 15px;
-			}
-
-			.item-header,
-			.project-header {
-				flex-direction: column;
-				align-items: flex-start;
-				margin-bottom: 10px;
-			}
-
-			.item-title,
-			.project-title {
-				font-size: 1em;
-				margin-bottom: 5px;
-			}
-
-			.item-date {
-				font-size: 0.8em;
-				padding: 3px 8px;
-			}
-
-			.tech-stack {
-				gap: 5px;
-				margin-bottom: 10px;
-			}
-
-			.tech-tag {
-				font-size: 0.7em;
-				padding: 2px 8px;
-			}
-
-			.project-points li {
-				font-size: 0.9em;
-				padding-left: 18px;
-			}
-
-			.achievements {
-				padding: 20px;
-			}
-
-			.achievement-grid {
-				grid-template-columns: 1fr;
-				/* Stack achievements on mobile */
-			}
-
-			.achievement-item {
-				padding: 12px;
-				font-size: 0.9em;
-			}
-		}
-
-		@media print {
-			body {
-				background: white;
-				padding: 0;
-			}
-
-			.container {
-				box-shadow: none;
-				border-radius: 0;
-				max-width: 100% !important;
-				/* Ensure full width on print */
-				width: 100% !important;
-			}
-
-			.project-item:hover,
-			.skill-category:hover {
-				transform: none;
-			}
-
-			.nav-links {
-				display: none;
-				/* Hide navigation links in print */
-			}
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sai Rajesh Ramaraju - Software Developer & Cybersecurity Researcher</title>
+		    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #dae3ec 100%); /* Light background gradient */
+            color: #334155; /* Slate-700 for main text */
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .container-wide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .section-heading {
+            position: relative;
+            font-size: 2.5rem; /* text-4xl */
+            font-weight: 800; /* Extra bold */
+            color: #1e293b; /* Slate-900 */
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #0891b2; /* Cyan-600 */
+            border-radius: 2px;
+        }
+        .skill-tag {
+            background-color: #e0f2f7; /* Cyan-50 */
+            color: #0e7490; /* Cyan-700 */
+            padding: 0.35rem 0.9rem;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: default;
+            border: 1px solid #a7d9e7; /* Cyan-200 */
+        }
+        .skill-tag:hover {
+            background-color: #bae6fd; /* Sky-200 */
+            color: #0369a1; /* Sky-800 */
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0; /* Gray-200 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .project-card-image {
+            width: 100%;
+            height: 200px; /* Fixed height for image area */
+            background-color: #cbd5e1; /* Placeholder grey */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #475569;
+            font-weight: 600;
+        }
+        .project-points li::before {
+            content: '✓'; /* Checkmark icon */
+            color: #0d9488; /* Teal-600 */
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        .project-points li {
+            position: relative;
+            padding-left: 1.5rem; /* Space for custom bullet */
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+        .contact-icon {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .nav-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            color: #cbd5e1; /* Slate-300 */
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .nav-item:hover {
+            background-color: #334155; /* Slate-700 */
+            color: #e2e8f0; /* Gray-200 */
+        }
+        /* Fade in on scroll animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .achievement-card {
+            background-color: #f8fafc; /* Slate-50 */
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0; /* Gray-200 */
+            transition: transform 0.3s ease;
+        }
+        .achievement-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 text-slate-800">
 
-<body>
-	<div class="container">
-		<header class="header">
-			<div class="nav-links">
-				<a href="about.html" class="nav-link">About</a>
-				<a href="blog.html" class="nav-link">Blog</a>
+    <!-- Navbar -->
+    <nav class="bg-slate-900 p-4 shadow-lg sticky top-0 z-50">
+        <div class="container-wide flex justify-between items-center">
+            <div class="text-white text-2xl font-bold tracking-tight">
+                <a href="#hero" class="hover:text-cyan-400 transition-colors">Rajesh.dev</a>
+            </div>
+            <div class="space-x-4 flex">
+                <a href="#about" class="nav-item">About</a>
+                <a href="#skills" class="nav-item">Skills</a>
+                <a href="#experience" class="nav-item">Experience</a>
+                <a href="#projects" class="nav-item">Projects</a>
+                <a href="#blog-preview" class="nav-item">Blog</a>
+                <a href="#contact" class="nav-item">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-			</div>
-			<h1>SAI RAJESH RAMARAJU</h1>
-			<div class="subtitle">Software Developer</div>
-			<div class="contact-info">
-				<div class="contact-item">
-					<span>📞</span>
-					<a href="tel:814-322-5339">814-322-5339</a>
-				</div>
-				<div class="contact-item">
-					<span>✉️</span>
-					<a href="mailto:sairajeshramraju@gmail.com">sairajeshramraju@gmail.com</a>
-				</div>
-				<div class="contact-item">
-					<span>🔗</span>
-					<a href="https://linkedin.com/in/sai-rajesh-ramaraju"
-						target="_blank">LinkedIn</a>
-				</div>
-				<div class="contact-item">
-					<span>💻</span>
-					<a href="https://github.com/Ramarajusairajesh" target="_blank">GitHub</a>
-				</div>
-			</div>
-		</header>
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <!-- Background pattern/noise -->
+            <div class="absolute inset-0 bg-repeat opacity-5" style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%2394a3b8\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v1h96v4h1v-4h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9H0v1h96v4h1v-4h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4v-9h4v-1h-4V0h1v95zm-11 0v-9h-1v9h1zM11 95v-9h-1v9h1zM11 84v-9h-1v9h1zM11 73v-9h-1v9h1zM11 62v-9h-1v9h1zM11 51v-9h-1v9h1zM11 40v-9h-1v9h1zM11 29v-9h-1v9h1zM11 18v-9h-1v9h1zM85 11v9h1v-9h-1zM74 11v9h1v-9h-1zM63 11v9h1v-9h-1zM52 11v9h1v-9h-1zM41 11v9h1v-9h-1zM30 11v9h1v-9h-1zM19 11v9h1v-9h-1zM96 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4zm-11 0v1h-4v-1h4z\'/%3E%3C/g%3E%3C/svg%3E')" style="pointer-events: none;"></div>
+        </div>
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-cyan-400 drop-shadow-lg animate-fade-in-up">
+                Sai Rajesh Ramaraju
+            </h2>
+            <p class="mt-4 text-xl md:text-2xl text-slate-200 tracking-wide animate-fade-in-up animation-delay-100">
+                Software Developer & Cybersecurity Researcher
+            </p>
+            <p class="mt-6 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
+                I build robust software and then seek to break it, ensuring it stands strong against the chaos of the real world. Passionate about backend systems, OS internals, and cybersecurity.
+            </p>
+            <div class="mt-10 flex justify-center space-x-6 animate-fade-in-up animation-delay-300">
+                <a href="#projects" class="px-8 py-3 bg-cyan-600 text-white font-semibold rounded-full shadow-lg hover:bg-cyan-700 transition-all transform hover:scale-105">View Projects</a>
+                <a href="#contact" class="px-8 py-3 bg-slate-700 text-white font-semibold rounded-full shadow-lg hover:bg-slate-800 transition-all transform hover:scale-105">Get In Touch</a>
+            </div>
+        </div>
+    </section>
 
-		<main class="main-content">
-			<section class="section">
-				<h2>TECHNICAL SKILLS</h2>
-				<div class="skills-grid">
-					<div class="skill-category">
-						<h3>Programming Languages</h3>
-						<div class="skill-tags">
-							<span class="skill-tag">Java</span>
-							<span class="skill-tag">Python</span>
-							<span class="skill-tag">SQL</span>
-							<span class="skill-tag">C/C++</span>
-							<span class="skill-tag">JavaScript</span>
-							<span class="skill-tag">HTML/CSS</span>
-							<span class="skill-tag">Rust</span>
-						</div>
-					</div>
-					<div class="skill-category">
-						<h3>Frameworks & APIs</h3>
-						<div class="skill-tags">
-							<span class="skill-tag">Django</span>
-							<span class="skill-tag">Flask</span>
-							<span class="skill-tag">FastAPI</span>
-							<span class="skill-tag">React</span>
-							<span class="skill-tag">RESTful APIs</span>
-						</div>
-					</div>
-					<div class="skill-category">
-						<h3>Databases</h3>
-						<div class="skill-tags">
-							<span class="skill-tag">MySQL</span>
-							<span class="skill-tag">PostgreSQL</span>
-							<span class="skill-tag">Database Design</span>
-							<span class="skill-tag">Optimization</span>
-						</div>
-					</div>
-					<div class="skill-category">
-						<h3>Development Tools</h3>
-						<div class="skill-tags">
-							<span class="skill-tag">Git</span>
-							<span class="skill-tag">GitHub Actions</span>
-							<span class="skill-tag">Docker</span>
-							<span class="skill-tag">Kubernetes</span>
-							<span class="skill-tag">Linux</span>
-						</div>
-					</div>
-					<div class="skill-category">
-						<h3>Cloud Technologies</h3>
-						<div class="skill-tags">
-							<span class="skill-tag">AWS (EC2, RDS, S3)</span>
-							<span class="skill-tag">Containerization</span>
-							<span class="skill-tag">CI/CD Pipelines</span>
-						</div>
-					</div>
-					<div class="skill-category">
-						<h3>Libraries</h3>
-						<div class="skill-tags">
-							<span class="skill-tag">pandas</span>
-							<span class="skill-tag">NumPy</span>
-							<span class="skill-tag">scikit-learn</span>
-							<span class="skill-tag">TensorFlow</span>
-							<span class="skill-tag">BeautifulSoup</span>
-						</div>
-					</div>
-				</div>
-			</section>
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading">About Me</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6 text-lg text-slate-700 leading-relaxed">
+                    <p class="font-semibold text-xl text-cyan-700">Hail and well met, traveler. I am known in the old tongue as Vanitas, Flamebound Scribe of the Ebon Spire.</p>
+                    <p>Greetings! I am Sai Rajesh Ramaraju, though in everyday circles, I am simply Rajesh. In the realm of social media and digital whispers, I go by Vanitas.</p>
+                    <p>I am a software developer and cybersecurity researcher. In simpler terms: I build software, then seek to break it—ensuring it stands strong against the chaos of the real world. With a Bachelor’s degree in Computer Science, I have carved my path through the art of digital creation and calculated destruction.</p>
+                    <p>My journey into technology began humbly—with a childhood fascination for computer games. What began as play soon became passion. Curiosity led me behind the veil: How does it work? Why does it work that way? One question led to another, and I found myself immersed in the depths of backend systems, operating systems, kernels, Linux internals, and networking.</p>
+                </div>
+                <div class="space-y-6 text-lg text-slate-700 leading-relaxed">
+                    <p>Since then, I’ve grown into someone who loves getting my hands dirty with backend engineering, Linux, and low-level programming in C and C++. These are my tools, my craft—and I am constantly learning, improving, and expanding my abilities.</p>
+                    <p>Welcome to my corner of the web, where code meets creativity. I specialize in building reliable, scalable backend systems and crafting developer tools with purpose. I’ve studied the core principles of software design, explored the landscape of modern cloud technologies, and embraced DevOps practices that bring systems to life and keep them running smoothly.</p>
+                    <p>As you’ve no doubt gleaned from my speech, I hold a deep love for the old ways—the language of dragons and the myths that shaped worlds. I am a fantasy enthusiast, captivated by worlds of magic, forgotten realms, and epic sagas that defy the mundane.</p>
+                    <p class="font-semibold text-xl text-cyan-700">So whether you come seeking code, conversation, or curiosity—you are most welcome here.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			<section class="section">
-				<h2>EDUCATION</h2>
-				<div class="education-item">
-					<div class="item-header">
-						<div>
-							<div class="item-title">Bachelor of Technology, Computer Science
-								and Engineering</div>
-							<div class="item-subtitle">Narasaraopeta Engineering College,
-								Narasaraopeta, AP | CGPA:
-								7.56</div>
-						</div>
-						<div class="item-date">Jun 2020 – Jun 2024</div>
-					</div>
-				</div>
-			</section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 md:py-24 bg-slate-50 fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading">Technical Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Programming Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">C/C++</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">Rust</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Frameworks & APIs</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">RESTful APIs</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Databases & Data</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Memcache</span>
+                        <span class="skill-tag">Database Design</span>
+                        <span class="skill-tag">Optimization</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Cloud & DevOps</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">AWS (EC2, RDS, S3)</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">CI/CD Pipelines</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">Apache Kafka</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Systems & OS</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">System Programming</span>
+                        <span class="skill-tag">Kernel</span>
+                        <span class="skill-tag">Shell Scripting</span>
+                        <span class="skill-tag">Win32 API</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Cybersecurity & Networking</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Cybersecurity Research</span>
+                        <span class="skill-tag">Web Security</span>
+                        <span class="skill-tag">Network Programming</span>
+                        <span class="skill-tag">Networking Protocols</span>
+                        <span class="skill-tag">Exploit Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			<section class="section">
-				<h2>PROFESSIONAL EXPERIENCE</h2>
-				<div class="experience-item">
-					<div class="item-header">
-						<div>
-							<div class="item-title">Software Engineering Intern | Infinity
-								IT Solutions</div>
-							<div class="item-subtitle">Hyderabad</div>
-						</div>
-						<div class="item-date">Aug 2024 – Apr 2025</div>
-					</div>
-					<ul class="project-points">
-						<li>Developing and maintaining Java-based applications with focus on
-							backend services and API
-							integration</li>
-						<li>Collaborating with cross-functional teams to implement software
-							solutions according to
-							design specifications</li>
-						<li>Contributing to code reviews and following established software
-							architecture patterns</li>
-					</ul>
-				</div>
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 md:py-24 fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading">Professional Experience</h2>
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                    <div class="flex justify-between items-start mb-4 flex-wrap gap-y-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">Software Engineering Intern</h3>
+                            <p class="text-slate-700">Infinity IT Solutions | Hyderabad</p>
+                        </div>
+                        <span class="text-sm text-slate-500 font-semibold bg-blue-50 px-3 py-1 rounded-full">Aug 2024 – Apr 2025</span>
+                    </div>
+                    <ul class="project-points text-slate-700">
+                        <li>Developing and maintaining Java-based applications with focus on backend services and API integration.</li>
+                        <li>Collaborating with cross-functional teams to implement software solutions according to design specifications.</li>
+                        <li>Contributing to code reviews and following established software architecture patterns.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                    <div class="flex justify-between items-start mb-4 flex-wrap gap-y-2">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">Backend Development Intern</h3>
+                            <p class="text-slate-700">Digit360™ | Hyderabad</p>
+                        </div>
+                        <span class="text-sm text-slate-500 font-semibold bg-blue-50 px-3 py-1 rounded-full">Jan 2024 – Apr 2024</span>
+                    </div>
+                    <ul class="project-points text-slate-700">
+                        <li>Built scalable backend systems using Python and SQL for data processing and API development.</li>
+                        <li>Implemented database optimization techniques resulting in improved query performance.</li>
+                        <li>Developed RESTful APIs serving 10,000+ daily requests for e-commerce data analysis.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-				<div class="experience-item">
-					<div class="item-header">
-						<div>
-							<div class="item-title">Backend Development Intern | Digit360™
-							</div>
-							<div class="item-subtitle">Hyderabad</div>
-						</div>
-						<div class="item-date">Jan 2024 – Apr 2024</div>
-					</div>
-					<ul class="project-points">
-						<li>Built scalable backend systems using Python and SQL for data
-							processing and API development
-						</li>
-						<li>Implemented database optimization techniques resulting in improved
-							query performance</li>
-						<li>Developed RESTful APIs serving 10,000+ daily requests for e-commerce
-							data analysis</li>
-					</ul>
-				</div>
-			</section>
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 md:py-24 bg-slate-50 fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading">Key Technical Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Distributed Payment System -->
+                <div class="project-card">
+                    <div class="project-card-image bg-gradient-to-br from-teal-500 to-teal-700 text-white">
+                        <span class="text-3xl">💳</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Distributed Payment System</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">FastAPI</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Kubernetes</span>
+                        </div>
+                        <ul class="project-points text-slate-700 flex-grow">
+                            <li>Architected secure microservices-based payment system with Authentication, Account Management, and Transaction services.</li>
+                            <li>Built robust database schema in PostgreSQL with proper indexing and transaction management.</li>
+                            <li>Implemented comprehensive testing with pytest coverage and CI/CD pipelines via GitHub Actions.</li>
+                        </ul>
+                        <a href="https://github.com/Ramarajusairajesh/Distributed-Payment-System" target="_blank" class="mt-4 text-cyan-600 hover:text-cyan-800 font-semibold self-start flex items-center">
+                            Learn More 
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
 
-			<section class="section">
-				<h2>KEY TECHNICAL PROJECTS</h2>
+                <!-- Project 2: Distributed File Storage System -->
+                <div class="project-card">
+                    <div class="project-card-image bg-gradient-to-br from-blue-500 to-blue-700 text-white">
+                        <span class="text-3xl">💾</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Distributed File Storage System</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag">C++</span>
+                            <span class="skill-tag">Linux</span>
+                            <span class="skill-tag">Asio</span>
+                            <span class="skill-tag">CMake</span>
+                        </div>
+                        <ul class="project-points text-slate-700 flex-grow">
+                            <li>Designed and implemented a scalable distributed file storage system using C++ on Linux, featuring fault tolerance and leader election.</li>
+                            <li>Developed a chunk-based storage architecture enabling horizontal scalability for capacity and throughput.</li>
+                            <li>Engineered a robust health monitoring system utilizing Asio for asynchronous network communication.</li>
+                            <li>Integrated MD5 hashing for file signature generation, ensuring data integrity.</li>
+                        </ul>
+                        <a href="https://github.com/Ramarajusairajesh/Distributed-File-Grid" target="_blank" class="mt-4 text-cyan-600 hover:text-cyan-800 font-semibold self-start flex items-center">
+                            Learn More 
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
 
-				<div class="project-item">
-					<div class="project-header">
-						<div class="project-title">Distributed Payment System</div>
-					</div>
-					<div class="tech-stack">
-						<span class="tech-tag">Python</span>
-						<span class="tech-tag">FastAPI</span>
-						<span class="tech-tag">PostgreSQL</span>
-						<span class="tech-tag">Docker</span>
-						<span class="tech-tag">Kubernetes</span>
-					</div>
-					<ul class="project-points">
-						<li><strong>Architected secure microservices-based payment
-								system</strong> with Authentication,
-							Account Management, and Transaction services</li>
-						<li><strong>Built robust database schema</strong> in PostgreSQL with
-							proper indexing and
-							transaction management</li>
-						<li><strong>Implemented comprehensive testing</strong> with pytest
-							coverage and CI/CD pipelines
-							via GitHub Actions</li>
-					</ul>
-				</div>
+                <!-- Project 3: Enterprise Employee Management System -->
+                <div class="project-card">
+                    <div class="project-card-image bg-gradient-to-br from-indigo-500 to-indigo-700 text-white">
+                        <span class="text-3xl">🏢</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Enterprise Employee System</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">JPA/Hibernate</span>
+                        </div>
+                        <ul class="project-points text-slate-700 flex-grow">
+                            <li>Developed enterprise application using Spring Boot framework with MVC architecture for employee management.</li>
+                            <li>Implemented complex database operations including stored procedures and transaction management.</li>
+                            <li>Designed normalized database schema with 15+ tables handling employee records and payroll tracking.</li>
+                        </ul>
+                        <a href="https://github.com/Ramarajusairajesh/Empipe" target="_blank" class="mt-4 text-cyan-600 hover:text-cyan-800 font-semibold self-start flex items-center">
+                            Learn More 
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
 
-				<div class="project-item">
-					<div class="project-header">
-						<div class="project-title">Distributed File Storage System</div>
-					</div>
-					<div class="tech-stack">
-						<span class="tech-tag">C++</span>
-						<span class="tech-tag">Linux</span>
-						<span class="tech-tag">Asio</span>
-						<span class="tech-tag">CMake</span>
-						<span class="tech-tag">spdlog</span>
-					</div>
-					<ul class="project-points">
-						<li>Designed and implemented a scalable distributed file storage
-							system using C++ on Linux, featuring an odd number of
-							head servers for fault tolerance and leader election.
-						</li>
-						<li>Developed a chunk-based storage architecture, enabling horizontal
-							scalability for both capacity and throughput by distributing
-							file chunks across multiple storage servers.</li>
-						<li>Engineered a robust health monitoring system utilizing Asio
-							for asynchronous network communication, ensuring continuous
-							uptime and proactive detection of server failures.</li>
-						<li>Integrated MD5 hashing for file signature generation, ensuring
-							data integrity and allowing for efficient corruption detection
-							of stored chunks.</li>
-						<li>Utilized CMake for build automation and spdlog for
-							high-performance logging, contributing to a stable and
-							maintainable codebase.</li>
+                <!-- Project 4: ShopSight -->
+                <div class="project-card">
+                    <div class="project-card-image bg-gradient-to-br from-purple-500 to-purple-700 text-white">
+                        <span class="text-3xl">🛍️</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">ShopSight: E-commerce Analysis</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Django</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Scrapy</span>
+                            <span class="skill-tag">ML</span>
+                        </div>
+                        <ul class="project-points text-slate-700 flex-grow">
+                            <li>Implemented scalable web scraping pipelines with Scrapy, extracting over 10,000 e-commerce records daily.</li>
+                            <li>Developed predictive ML models using scikit-learn and TensorFlow for customer purchasing trends (85% accuracy).</li>
+                            <li>Orchestrated cloud-native deployments on AWS with Kubernetes and Docker for real-time business intelligence.</li>
+                        </ul>
+                         <a href="https://github.com/Ramarajusairajesh/WebScrapping" target="_blank" class="mt-4 text-cyan-600 hover:text-cyan-800 font-semibold self-start flex items-center">
+                            Learn More 
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
 
-					</ul>
-				</div>
+                <!-- Project 5: Custom Git Implementation -->
+                <div class="project-card">
+                    <div class="project-card-image bg-gradient-to-br from-pink-500 to-pink-700 text-white">
+                        <span class="text-3xl">🌳</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">Custom Git Implementation</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag">Python 3</span>
+                            <span class="skill-tag">File I/O</span>
+                            <span class="skill-tag">SHA-1 Hashing</span>
+                            <span class="skill-tag">CLI Tools</span>
+                        </div>
+                        <ul class="project-points text-slate-700 flex-grow">
+                            <li>Developed a Python-based reimplementation of Git’s core functionality to deepen understanding of version control.</li>
+                            <li>Supported key commands: init, add, commit, hash-object, cat-file, write-tree, and checkout.</li>
+                            <li>Created a custom .git object model to manage blobs, trees, and commits with accurate SHA-1 hashing.</li>
+                        </ul>
+                        <a href="https://github.com/Ramarajusairajesh/Git-in-python3" target="_blank" class="mt-4 text-cyan-600 hover:text-cyan-800 font-semibold self-start flex items-center">
+                            Learn More 
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
 
-				<!-- <div class="project-item"> -->
-				<!-- 	<div class="project-header"> -->
-				<!-- 		<div class="project-title">Healthcare Inventory Management System</div> -->
-				<!-- 	</div> -->
-				<!-- 	<div class="tech-stack"> -->
-				<!-- 		<span class="tech-tag">Django</span> -->
-				<!-- 		<span class="tech-tag">MySQL</span> -->
-				<!-- 		<span class="tech-tag">Docker</span> -->
-				<!-- 	</div> -->
-				<!-- 	<ul class="project-points"> -->
-				<!-- 		<li><strong>Developed full-stack web application</strong> for clinic and -->
-				<!-- 			pharmacy inventory -->
-				<!-- 			management</li> -->
-				<!-- 		<li><strong>Implemented secure user authentication</strong> and -->
-				<!-- 			role-based access control using -->
-				<!-- 			Django framework</li> -->
-				<!-- 		<li><strong>Built RESTful API endpoints</strong> for real-time inventory -->
-				<!-- 			updates reducing manual -->
-				<!-- 			processing time by 60%</li> -->
-				<!-- 	</ul> -->
-				<!-- </div> -->
-				<!---->
-				<div class="project-item">
-					<div class="project-header">
-						<div class="project-title">Enterprise Employee Management System</div>
-					</div>
-					<div class="tech-stack">
-						<span class="tech-tag">Java</span>
-						<span class="tech-tag">Spring Boot</span>
-						<span class="tech-tag">MySQL</span>
-						<span class="tech-tag">JPA/Hibernate</span>
-					</div>
-					<ul class="project-points">
-						<li><strong>Developed enterprise application</strong> using Spring Boot
-							framework with MVC
-							architecture</li>
-						<li><strong>Implemented complex database operations</strong> including
-							stored procedures and
-							transaction management</li>
-						<li><strong>Designed normalized database schema</strong> with 15+ tables
-							handling employee
-							records and payroll tracking</li>
-					</ul>
-				</div>
-			</section>
+                 <!-- Project 6: MOShell (Mini OS Shell) -->
+                <div class="project-card">
+                    <div class="project-card-image bg-gradient-to-br from-red-500 to-red-700 text-white">
+                        <span class="text-3xl">💻</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-3">MOShell (Mini OS Shell)</h3>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="skill-tag">C</span>
+                            <span class="skill-tag">Linux</span>
+                            <span class="skill-tag">System Calls</span>
+                            <span class="skill-tag">Low-Level</span>
+                        </div>
+                        <ul class="project-points text-slate-700 flex-grow">
+                            <li>Developed a custom command-line interpreter in pure C on Linux, replicating core shell functionalities.</li>
+                            <li>Implemented features such as command parsing, execution of external programs using system calls (e.g., `fork()`, `execvp()`), and input/output redirection.</li>
+                            <li>Managed process creation and termination, demonstrating understanding of OS process management.</li>
+                        </ul>
+                         <a href="https://github.com/Ramarajusairajesh/MOShell" target="_blank" class="mt-4 text-cyan-600 hover:text-cyan-800 font-semibold self-start flex items-center">
+                            Learn More 
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			<div class="achievements">
-				<h3>ADDITIONAL EXPERIENCE & ACHIEVEMENTS</h3>
-				<div class="achievement-grid">
-					<div class="achievement-item">
-						<strong>Systems Programming:</strong>
-						•Developed 32-bit x86 kernel with multiboot support and custom shell
-						with command parsing <br>•
-						Developed a custom shell in C with command execution, dynamic input
-						history, and
-						tab-completion.
-					</div>
+    <!-- Additional Experience & Achievements Section -->
+    <section id="achievements" class="py-16 md:py-24 bg-slate-100 fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading">Achievements & Interests</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="achievement-card">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Systems Programming</h3>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                        <li>Developed a 32-bit x86 kernel with multiboot support and a custom shell with command parsing (<a href="https://github.com/Ramarajusairajesh/MOKernel" target="_blank" class="text-blue-600 hover:underline">MOKernel</a>).</li>
+                        <li>Developed a custom shell in C with command execution, dynamic input history, and tab-completion (<a href="https://github.com/Ramarajusairajesh/MOShell" target="_blank" class="text-blue-600 hover:underline">MOShell</a>).</li>
+                        <li>Explored file system concepts with FUSE (Filesystem in Userspace).</li>
+                    </ul>
+                </div>
+                <div class="achievement-card">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Cybersecurity & Networking</h3>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                        <li>Completed 100+ challenges on TryHackMe and Hack The Box platforms.</li>
+                        <li>Deep dive into Web Security Vulnerabilities & Exploits, understanding common attack vectors (XSS, SQLi, SSRF).</li>
+                        <li>Familiar with network protocols (TCP/IP, HTTP, FTP) and routing/switching concepts.</li>
+                    </ul>
+                </div>
+                <div class="achievement-card">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Competitive Programming</h3>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                        <li>Achieved Knight status on LeetCode with consistent problem-solving performance.</li>
+                        <li>Actively participate in coding contests, enhancing algorithmic thinking and problem-solving skills.</li>
+                    </ul>
+                </div>
+                <div class="achievement-card col-span-1 md:col-span-2 lg:col-span-3 text-center">
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Key Technical Achievements</h3>
+                    <ul class="list-disc list-inside text-slate-700 inline-block text-left">
+                        <li>Built production-ready APIs handling 10,000+ daily requests in distributed systems.</li>
+                        <li>Designed and implemented scalable microservices architectures.</li>
+                        <li>Optimized database performance and ensured data integrity across multiple complex projects.</li>
+                        <li>Proven ability to containerize applications with Docker and orchestrate with Kubernetes for robust deployments.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-					<div class="achievement-item">
-						<strong>Cybersecurity:</strong>
-						•Completed 100+ challenges on TryHackMe and Hack The Box platforms
-					</div>
-					<div class="achievement-item">
-						<strong>Competitive Programming:</strong>
-						•Achieved Knight status on LeetCode with consistent problem-solving
-						performance
-					</div>
-					<div class="achievement-item">
-						<strong>Key Achievements:</strong>
-						•Built production-ready APIs handling 10,000+ daily requests<br> •
-						Designed scalable
-						microservices
-						systems <br>• Optimized database performance across multiple projects
-					</div>
-				</div>
-			</div>
-		</main>
-	</div>
+    <!-- Blog Preview Section -->
+    <section id="blog-preview" class="py-16 md:py-24 bg-slate-900 text-white fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading text-white">My Tech Blog</h2>
+            <p class="text-center text-slate-300 mb-10 max-w-2xl mx-auto">
+                Explore my insights on various technical topics, from operating system internals to cybersecurity and cloud-native development.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Blog Card 1: OS & Kernel -->
+                <a href="os.html" class="animation-section group block bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 relative overflow-hidden h-64 flex flex-col items-center justify-center p-4">
+                    <div class="relative w-full h-full flex items-center justify-center">
+                         <svg class="terminal-svg" width="100%" height="100%" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet" style="max-width: 150px; max-height: 90px;">
+                            <rect class="terminal-outline" x="45" y="5" width="110" height="110" rx="5" ry="5" stroke="#a7d9e7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></rect>
+                            <path class="terminal-outline" d="M60 60 L75 45 L75 75 Z" stroke="#a7d9e7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <line class="terminal-outline" x1="80" y1="70" x2="100" y2="70" stroke="#a7d9e7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></line>
+                        </svg>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                        <span class="text-white text-lg font-semibold">OS & Kernel</span>
+                    </div>
+                </a>
 
-	<script>
-		// Add smooth scrolling for navigation links
-		const navLinks = document.querySelectorAll('.nav-link');
-		navLinks.forEach(link => {
-			link.addEventListener('click', function (e) {
-				// Prevent default behavior only for internal anchors, not for external links like 'about.html' or 'blog.html'
-				if (this.getAttribute('href').startsWith('#')) {
-					e.preventDefault();
-					const targetId = this.getAttribute('href');
-					const targetElement = document.querySelector(targetId);
-					if (targetElement) {
-						window.scrollTo({
-							top: targetElement.offsetTop,
-							behavior: 'smooth'
-						});
-					}
-				}
-			});
+                <!-- Blog Card 2: Network -->
+                <a href="network.html" class="animation-section group block bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 relative overflow-hidden h-64 flex flex-col items-center justify-center p-4">
+                    <div class="relative w-full h-full flex items-center justify-center">
+                         <svg class="rj45-svg" width="100%" height="100%" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet" style="max-width: 150px; max-height: 90px;">
+                            <path class="rj45-outline" d="M20,20 L180,20 L180,100 L20,100 Z M150,20 L150,10 C150,5 145,0 140,0 L60,0 C55,0 50,5 50,10 L50,20 M60,30 L60,40 M70,30 L70,40 M80,30 L80,40 M90,30 L90,40 M100,30 L100,40 M110,30 L110,40 M120,30 L120,40 M130,30 L130,40" stroke="#b46a00" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                        <span class="text-white text-lg font-semibold">Networking</span>
+                    </div>
+                </a>
 
-			// Add hover effect
-			link.addEventListener('mouseenter', function () {
-				this.style.transform = 'translateY(-3px) scale(1.05)';
-			});
-			link.addEventListener('mouseleave', function () {
-				this.style.transform = 'translateY(0) scale(1)';
-			});
-		});
-		document.addEventListener('DOMContentLoaded', function () {
-			// Animate skill tags on hover
-			const skillTags = document.querySelectorAll('.skill-tag');
-			skillTags.forEach(tag => {
-				tag.addEventListener('mouseenter', function () {
-					this.style.transform = 'scale(1.1) rotate(2deg)';
-				});
-				tag.addEventListener('mouseleave', function () {
-					this.style.transform = 'scale(1) rotate(0deg)';
-				});
-			});
+                <!-- Blog Card 3: Server & Containers -->
+                <a href="server.html" class="animation-section group block bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 relative overflow-hidden h-64 flex flex-col items-center justify-center p-4">
+                    <div class="relative w-full h-full flex items-center justify-center overflow-hidden">
+                        <div class="server-bg-lines absolute inset-0 opacity-50" style="pointer-events: none;"></div>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                        <span class="text-white text-lg font-semibold">Containers & Cloud</span>
+                    </div>
+                </a>
 
-			// Add click effects to project items
-			const projects = document.querySelectorAll('.project-item');
-			projects.forEach(project => {
-				project.addEventListener('click', function () {
-					this.style.transform = 'scale(1.02)';
-					setTimeout(() => {
-						this.style.transform = '';
-					}, 200);
-				});
-			});
+                <!-- Blog Card 4: Cybersecurity & Exploits -->
+                <a href="bugs.html" class="animation-section group block bg-slate-800 rounded-xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 relative overflow-hidden h-64 flex flex-col items-center justify-center p-4">
+                    <div class="relative w-full h-full flex items-center justify-center">
+                        <svg class="bug-svg" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style="max-width: 80px; max-height: 80px;">
+                            <path id="bug-body-preview" class="bug-outline" d="M 35 25 L 65 25 C 68 25 70 27 70 30 L 70 55 C 70 65 60 75 50 75 C 40 75 30 65 30 55 L 30 30 C 30 27 32 25 35 25 Z M 35 25 A 15 15 0 0 1 65 25" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path class="bug-outline" d="M 30 30 L 20 20 L 10 20" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <line class="bug-outline" x1="30" y1="45" x2="10" y2="45" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></line>
+                            <path class="bug-outline" d="M 30 60 L 20 70 L 10 70" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path class="bug-outline" d="M 70 30 L 80 20 L 90 20" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <line class="bug-outline" x1="70" y1="45" x2="90" y2="45" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></line>
+                            <path class="bug-outline" d="M 70 60 L 80 70 L 90 70" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <rect class="bug-outline" x="42" y="42" width="16" height="16" stroke="#e53e3e" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></rect>
+                        </svg>
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                        <span class="text-white text-lg font-semibold">Cybersecurity</span>
+                    </div>
+                </a>
+            </div>
+            <div class="text-center mt-12">
+                <a href="blog.html" class="inline-flex items-center px-8 py-3 bg-cyan-600 text-white font-semibold rounded-full shadow-lg hover:bg-cyan-700 transition-all transform hover:scale-105">
+                    Visit My Full Blog
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
 
-			// Animate elements on scroll
-			const observerOptions = {
-				threshold: 0.1,
-				rootMargin: '0px 0px -50px 0px'
-			};
+    <!-- Education Section -->
+    <section id="education" class="py-16 md:py-24 fade-in-section">
+        <div class="container-wide">
+            <h2 class="section-heading">Education</h2>
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-md border border-gray-200 text-center">
+                <h3 class="text-2xl font-bold text-slate-900">Bachelor of Technology, Computer Science and Engineering</h3>
+                <p class="text-xl text-slate-700 mt-2">Narasaraopeta Engineering College, Narasaraopeta</p>
+                <p class="text-md text-slate-500 mt-1">June 2020 – June 2024</p>
+            </div>
+        </div>
+    </section>
 
-			const observer = new IntersectionObserver(function (entries) {
-				entries.forEach(entry => {
-					if (entry.isIntersecting) {
-						entry.target.style.opacity = '1';
-						entry.target.style.transform = 'translateY(0)';
-					}
-				});
-			}, observerOptions);
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24 bg-slate-800 text-white fade-in-section">
+        <div class="container-wide text-center">
+            <h2 class="section-heading text-white">Get In Touch</h2>
+            <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-10">
+                Have a project in mind, a question, or just want to connect? Feel free to reach out!
+            </p>
+            <div class="flex flex-col items-center space-y-6">
+                <a href="mailto:sairajeshramraju@gmail.com" class="inline-flex items-center px-6 py-3 bg-cyan-600 text-white font-semibold rounded-full shadow-lg hover:bg-cyan-700 transition-all transform hover:scale-105">
+                    <span class="contact-icon">✉️</span>
+                    Email Me: sairajeshramraju@gmail.com
+                </a>
+                <a href="tel:814-322-5339" class="inline-flex items-center px-6 py-3 bg-slate-700 text-white font-semibold rounded-full shadow-lg hover:bg-slate-900 transition-all transform hover:scale-105">
+                    <span class="contact-icon">📞</span>
+                    Call/Text: 814-322-5339
+                </a>
+                <div class="flex space-x-6 mt-6">
+                    <a href="https://linkedin.com/in/Sairajesh" target="_blank" class="text-slate-300 hover:text-cyan-400 transition-colors transform hover:scale-110">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="https://github.com/Ramarajusairajesh" target="_blank" class="text-slate-300 hover:text-cyan-400 transition-colors transform hover:scale-110">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://x.com/home" target="_blank" class="text-slate-300 hover:text-cyan-400 transition-colors transform hover:scale-110">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 3.52c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 5.888c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 8.256c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 10.624c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 12.992c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 15.36c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 17.728c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 20.096c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zM18.901 22.464c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H17.81a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h1.091zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.184 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.477a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.477zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867h-.478a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H4.453a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478zm-2.183 0c.478 0 .867.389.867.867v.478c0 .478-.389.867-.867.867H2.27a.867.867 0 01-.867-.867v-.478c0-.478.389-.867.867-.867h.478z'/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-			// Observe all sections
-			const sections = document.querySelectorAll('.section');
-			sections.forEach(section => {
-				section.style.opacity = '0';
-				section.style.transform = 'translateY(20px)';
-				section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-				observer.observe(section);
-			});
-		});
-	</script>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center text-sm">
+        <div class="container-wide">
+            <p>&copy; 2025 Sai Rajesh Ramaraju. All rights reserved.</p>
+            <p class="mt-2">Designed and Developed with 💖</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for fade-in effect
+        const fadeInSections = document.querySelectorAll('.fade-in-section');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeInSections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Dynamic background lines for Server section
+        document.addEventListener('DOMContentLoaded', function() {
+            const serverBgLinesContainer = document.querySelector('.server-bg-lines');
+            if (serverBgLinesContainer) {
+                const numLines = 20;
+                for (let i = 0; i < numLines; i++) {
+                    const line = document.createElement('div');
+                    line.classList.add('absolute', 'bg-cyan-500', 'rounded-full');
+                    line.style.width = '2px';
+                    line.style.height = `${Math.random() * 60 + 20}px`;
+                    line.style.left = `${Math.random() * 100}%`;
+                    line.style.top = `${Math.random() * 100}%`;
+                    line.style.opacity = `${Math.random() * 0.5 + 0.2}`;
+                    line.style.animation = `float ${Math.random() * 5 + 5}s infinite ease-in-out alternate-reverse`;
+                    line.style.animationDelay = `${Math.random() * 2}s`;
+                    serverBgLinesContainer.appendChild(line);
+                }
+            }
+
+            const styleSheet = document.createElement("style");
+            styleSheet.type = "text/css";
+            styleSheet.innerText = `
+                @keyframes float {
+                    0% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(10px) rotate(2deg); }
+                    100% { transform: translateY(0px) rotate(0deg); }
+                }
+                .animate-fade-in-up {
+                    animation: fadeInUp 1s ease-out forwards;
+                }
+                .animation-delay-100 { animation-delay: 0.1s; }
+                .animation-delay-200 { animation-delay: 0.2s; }
+                .animation-delay-300 { animation-delay: 0.3s; }
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        });
+    </script>
 </body>
-
 </html>
+
